@@ -65,6 +65,7 @@ model Event {
   createdBy            User              @relation("EventCreator", fields: [createdById], references: [id])
   registrations        Registration[]
   rounds               EventRound[]
+  certificates         Certificate[]
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
 
