@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import FloatingEcellCard from "@/components/floating-ecell-card";
 import HomeMotion from "@/components/home-motion";
+import InteractiveDotField from "@/components/interactive-dot-field";
 
 export default async function Home() {
   const events = await prisma.event.findMany({
@@ -13,13 +14,7 @@ export default async function Home() {
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#E0E0E1] text-[#171717]">
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-56 -top-48 h-[620px] w-[620px] rounded-full bg-[#6D4DFE]/[0.10] blur-[130px]" />
-        <div className="absolute -right-48 top-[18%] h-[560px] w-[560px] rounded-full bg-[#FF5A36]/[0.09] blur-[140px]" />
-        <div className="absolute -bottom-64 left-[28%] h-[560px] w-[560px] rounded-full bg-[#6D4DFE]/[0.07] blur-[140px]" />
-        <div className="absolute inset-0 opacity-[0.045] [background-image:radial-gradient(#171717_0.65px,transparent_0.65px)] [background-size:24px_24px]" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/35 to-transparent" />
-      </div>
+      <InteractiveDotField />
 
       <div className="mx-auto max-w-[1440px] px-5 pb-16 pt-8 sm:px-8 lg:px-12">
         <section className="hero-section relative grid min-h-[680px] items-center gap-8 border-b border-[#171717]/15 pb-16 pt-10 lg:grid-cols-[1.08fr_.92fr] lg:gap-12 lg:pb-20 lg:pt-12">
