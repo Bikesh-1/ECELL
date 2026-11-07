@@ -15,7 +15,7 @@ const schema = z.object({
 
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (session?.user?.role !== "CORE") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const parsed = schema.safeParse(await request.json());
   if (!parsed.success) return NextResponse.json({ error: "Invalid event details." }, { status: 400 });
   const { id } = await context.params;
@@ -29,7 +29,7 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
 
 export async function DELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (session?.user?.role !== "CORE") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const { id } = await context.params;
   try {
     await prisma.event.delete({ where: { id } });
