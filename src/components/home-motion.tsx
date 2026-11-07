@@ -1,3 +1,5 @@
+"use client";
+
 function HomeMotion() {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
