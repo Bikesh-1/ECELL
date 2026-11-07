@@ -1,6 +1,10 @@
 "use client";
 
-function HomeMotion() {
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+export default function HomeMotion() {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
