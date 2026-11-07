@@ -20,13 +20,14 @@ export default function CheckInScanner() {
         if (!detectorCtor) { setMessage("QR camera scanning is not supported in this browser. Enter the ticket code manually."); setScanning(false); return; }
         const detector = new detectorCtor({ formats: ["qr_code"] });
         stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-        if (!videoRef.current || stopped) { stream.getTracks().forEach(track => track.stop()); return; }
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
+        const video = videoRef.current;
+        if (!video || stopped) { stream.getTracks().forEach(track => track.stop()); return; }
+        video.srcObject = stream;
+        await video.play();
         const scan = async () => {
-          if (stopped || !videoRef.current) return;
+          if (stopped) return;
           try {
-            const results = await detector.detect(videoRef.current);
+            const results = await detector.detect(video);
             if (results.length && results[0].rawValue) {
               setCode(results[0].rawValue);
               setScanning(false);
