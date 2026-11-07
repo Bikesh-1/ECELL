@@ -1,0 +1,6 @@
+import Link from "next/link";
+import {redirect} from "next/navigation";
+import {auth} from "@/lib/auth";
+import {prisma} from "@/lib/prisma";
+export default async function AdminPage(){const session=await auth();if(session?.user?.role!=="ADMIN")redirect("/login");const[events,total]=await Promise.all([prisma.event.findMany({orderBy:{createdAt:"desc"},include:{_count:{select:{registrations:true}}}}),prisma.registration.count()]);
+return <main className="container" style={{padding:"40px 0"}}><Link href="/">← Home</Link><h1>President dashboard</h1><p className="muted">Manage E-Cell events and student registrations.</p><div style={{display:"flex",gap:14,margin:"24px 0"}}><div className="card"><strong>{events.length}</strong><p className="muted">Total events</p></div><div className="card"><strong>{total}</strong><p className="muted">Registrations</p></div></div><Link className="btn" href="/admin/events/new">+ Create event</Link><h2 style={{marginTop:32}}>Manage events</h2>{events.map(event=><article className="card" key={event.id} style={{margin:"14px 0"}}><h3>{event.title}</h3><p className="muted">{event.status} · {event._count.registrations} registrations</p><Link href={"/admin/events/"+event.id}>View registrations →</Link></article>)}</main>;}
