@@ -19,6 +19,12 @@ enum EventStatus {
   COMPLETED
 }
 
+enum ParticipationMode {
+  SOLO
+  TEAM
+  BOTH
+}
+
 model User {
   id            String         @id @default(cuid())
   name          String
@@ -32,32 +38,70 @@ model User {
 }
 
 model Event {
-  id                   String         @id @default(cuid())
+  id                   String            @id @default(cuid())
   title                String
-  slug                 String         @unique
-  description          String         @db.Text
+  slug                 String            @unique
+  description          String            @db.Text
+  posterUrl            String?
   venue                String
   eventDate            DateTime
   registrationDeadline DateTime
   maxParticipants      Int?
-  status               EventStatus    @default(DRAFT)
+  prizePool            String?
+  contactName          String?
+  contactPhone         String?
+  participationMode    ParticipationMode @default(SOLO)
+  minTeamSize          Int               @default(2)
+  maxTeamSize          Int               @default(4)
+  isPaid               Boolean           @default(false)
+  entryFee             Int               @default(0)
+  status               EventStatus       @default(DRAFT)
   createdById          String
-  createdBy            User           @relation("EventCreator", fields: [createdById], references: [id])
+  createdBy            User              @relation("EventCreator", fields: [createdById], references: [id])
   registrations        Registration[]
-  createdAt            DateTime       @default(now())
-  updatedAt            DateTime       @updatedAt
+  rounds               EventRound[]
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
 
   @@index([status, eventDate])
 }
 
+model EventRound {
+  id          String   @id @default(cuid())
+  eventId     String
+  title       String
+  description String   @db.Text
+  order       Int      @default(0)
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, order])
+}
+
 model Registration {
-  id           String   @id @default(cuid())
-  userId       String
-  eventId      String
-  registeredAt DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id                String       @id @default(cuid())
+  userId            String
+  eventId           String
+  phone             String
+  collegeName       String
+  participationType String       @default("SOLO")
+  teamName          String?
+  registeredAt      DateTime     @default(now())
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event             Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  teamMembers       TeamMember[]
 
   @@unique([userId, eventId])
   @@index([eventId, registeredAt])
+}
+
+model TeamMember {
+  id             String       @id @default(cuid())
+  registrationId String
+  name           String
+  email          String
+  phone          String
+  collegeName    String
+  registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId])
 }
