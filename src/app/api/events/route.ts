@@ -24,7 +24,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (session?.user?.role !== "CORE") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const parsed = eventSchema.safeParse(await request.json());
   if (!parsed.success) return NextResponse.json({ error: "Invalid event details", details: parsed.error.flatten() }, { status: 400 });
   const data = parsed.data;
