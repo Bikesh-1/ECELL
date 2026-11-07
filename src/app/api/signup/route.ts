@@ -16,10 +16,9 @@ export async function POST(request: Request) {
     const { name, password } = parsed.data;
     const email = parsed.data.email.toLowerCase();
     const passwordHash = await hash(password, 12);
-    const presidentEmail = process.env.PRESIDENT_EMAIL?.trim().toLowerCase();
-    const role = presidentEmail && email === presidentEmail ? "ADMIN" : "USER";
+    // Public signup always creates a normal USER. Only the trusted seed process can grant ADMIN.
     const user = await prisma.user.create({
-      data: { name, email, passwordHash, role },
+      data: { name, email, passwordHash, role: "USER" },
       select: { id: true, name: true, email: true, role: true },
     });
     return NextResponse.json({ user }, { status: 201 });
