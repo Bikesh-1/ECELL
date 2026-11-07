@@ -7,6 +7,7 @@ const links = [
   { name: "EVENTS", href: "/events" },
   { name: "ABOUT US", href: "/about" },
   { name: "RESOURCES", href: "/resources" },
+  { name: "COMMUNITY", href: "/leaderboard" },
 ];
 
 const actionClass = "whitespace-nowrap rounded-xl border-2 border-[#171717] px-4 py-2.5 text-sm font-black text-[#171717] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-0.5 active:translate-y-1 active:shadow-none";
@@ -26,6 +27,7 @@ export default function SiteNavbar({ role, authenticated }: SiteNavbarProps) {
         <div className="flex items-center justify-end gap-2 sm:gap-3 md:gap-4">
           {authenticated ? (
             <>
+              <Link href="/dashboard" className="hidden whitespace-nowrap text-xs font-extrabold text-[#171717] transition-colors hover:text-[#6D4DFE] sm:block md:text-sm">Dashboard</Link>
               <Link href="/my-registrations" className="hidden whitespace-nowrap text-xs font-extrabold text-[#171717] transition-colors hover:text-[#FF5A36] sm:block md:text-sm">My Registrations</Link>
               {role === "CORE" && <Link href="/admin" className="hidden whitespace-nowrap text-xs font-extrabold text-[#171717] transition-colors hover:text-[#6D4DFE] sm:block md:text-sm">Core Dashboard</Link>}
               <SignOutButton />
@@ -42,7 +44,10 @@ export default function SiteNavbar({ role, authenticated }: SiteNavbarProps) {
           {links.map(item => <Link key={item.name} href={item.href} className="whitespace-nowrap py-1 text-[11px] font-black tracking-wide text-[#171717] transition-colors hover:text-[#FF5A36]">{item.name}</Link>)}
           {authenticated ? (
             <>
+              <Link href="/dashboard" className="whitespace-nowrap py-1 text-[11px] font-black text-[#171717] hover:text-[#6D4DFE]">DASHBOARD</Link>
               <Link href="/my-registrations" className="whitespace-nowrap py-1 text-[11px] font-black text-[#171717] hover:text-[#FF5A36] sm:hidden">MY REGISTRATIONS</Link>
+              <Link href="/startup-hub" className="whitespace-nowrap py-1 text-[11px] font-black text-[#171717] hover:text-[#FF5A36]">STARTUP HUB</Link>
+              <Link href="/mentors" className="whitespace-nowrap py-1 text-[11px] font-black text-[#171717] hover:text-[#6D4DFE]">MENTORS</Link>
               {role === "CORE" && <Link href="/admin" className="whitespace-nowrap py-1 text-[11px] font-black text-[#171717] hover:text-[#6D4DFE] sm:hidden">CORE DASHBOARD</Link>}
             </>
           ) : (
