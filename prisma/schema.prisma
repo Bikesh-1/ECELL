@@ -81,8 +81,8 @@ model Registration {
   id                String       @id @default(cuid())
   userId            String
   eventId           String
-  phone             String
-  collegeName       String
+  phone             String       @default("")
+  collegeName       String       @default("")
   participationType String       @default("SOLO")
   teamName          String?
   registeredAt      DateTime     @default(now())
