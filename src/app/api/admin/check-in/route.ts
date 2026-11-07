@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   const registration = await prisma.registration.findUnique({ where: { checkInCode: parsed.data.code }, include: { user: true, event: true } });
   if (!registration) return NextResponse.json({ error: "Registration not found" }, { status: 404 });
   if (registration.checkedInAt) return NextResponse.json({ error: "Already checked in", checkedInAt: registration.checkedInAt, attendee: registration.user.name }, { status: 409 });
-  let updated;
+  let updated: { checkedInAt: Date | null } | null;
   try {
     updated = await prisma.$transaction(async (tx) => {
       const item = await tx.registration.updateMany({ where: { id: registration.id, checkedInAt: null }, data: { checkedInAt: new Date() } });
