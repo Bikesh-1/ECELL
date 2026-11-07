@@ -11,11 +11,17 @@ export async function POST(request: Request) {
   const registration = await prisma.registration.findUnique({ where: { checkInCode: parsed.data.code }, include: { user: true, event: true } });
   if (!registration) return NextResponse.json({ error: "Registration not found" }, { status: 404 });
   if (registration.checkedInAt) return NextResponse.json({ error: "Already checked in", checkedInAt: registration.checkedInAt, attendee: registration.user.name }, { status: 409 });
-  const updated = await prisma.$transaction(async (tx) => {
-    const item = await tx.registration.updateMany({ where: { id: registration.id, checkedInAt: null }, data: { checkedInAt: new Date() } });
-    if (!item.count) throw new Error("ALREADY_CHECKED_IN");
-    await tx.activityPoint.create({ data: { userId: registration.userId, points: 20, reason: "Attended: " + registration.event.title } });
-    return tx.registration.findUnique({ where: { id: registration.id }, select: { checkedInAt: true } });
-  });
+  let updated;
+  try {
+    updated = await prisma.$transaction(async (tx) => {
+      const item = await tx.registration.updateMany({ where: { id: registration.id, checkedInAt: null }, data: { checkedInAt: new Date() } });
+      if (!item.count) throw new Error("ALREADY_CHECKED_IN");
+      await tx.activityPoint.create({ data: { userId: registration.userId, points: 20, reason: "Attended: " + registration.event.title } });
+      return tx.registration.findUnique({ where: { id: registration.id }, select: { checkedInAt: true } });
+    });
+  } catch (error) {
+    if (error instanceof Error && error.message === "ALREADY_CHECKED_IN") return NextResponse.json({ error: "Already checked in", attendee: registration.user.name }, { status: 409 });
+    throw error;
+  }
   return NextResponse.json({ success: true, attendee: registration.user.name, event: registration.event.title, checkedInAt: updated?.checkedInAt });
 }
