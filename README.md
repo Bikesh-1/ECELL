@@ -1,38 +1,30 @@
 # E-Cell SMVIT Event Portal
 
-Next.js App Router + PostgreSQL + Prisma event portal with a President-only admin dashboard.
+Next.js App Router + Tailwind CSS + PostgreSQL + Prisma + Auth.js.
 
-## Features
-- Email/password signup and login using Auth.js credentials, JWT sessions and bcrypt password hashing.
-- Roles: USER and ADMIN. Public signup always creates USER; it never accepts a role from the browser.
-- President account is provisioned separately through a trusted seed script.
-- Admin can create/publish events, edit/close/delete events and view registrations.
-- Students from any college can register directly, subject to deadline and capacity.
-- Database unique constraint prevents duplicate registrations.
-- Students can view their registrations; admin can export event registrations to CSV.
+## Roles and access
+- USER: anyone can register directly, browse published events and register for events.
+- CORE: verified E-Cell core members can access the Core Team Dashboard, create/publish/update/close events and view/export registrations.
+- Public signup always creates USER. Role cannot be selected or changed from the signup form.
+- Core access is granted only to addresses listed in the private server-side CORE_EMAILS environment variable after those people have signed up. Never expose CORE_EMAILS as a NEXT_PUBLIC variable.
 
-## Setup
-1. Use Node.js 20.9+ and a PostgreSQL database (Neon is supported).
-2. Copy `.env.example` to `.env`.
-3. Set `DATABASE_URL`, a strong random `AUTH_SECRET`, `AUTH_URL=http://localhost:3000`, `PRESIDENT_EMAIL`, `PRESIDENT_NAME`, and `PRESIDENT_INITIAL_PASSWORD`.
-4. Run `npm install`.
-5. Run `npx prisma generate`.
-6. Run `npx prisma migrate dev --name init` (or `npm run db:push` for local prototyping).
-7. Run `npm run db:seed` to create/promote the one President account.
-8. Run `npm run dev`.
+## Local setup
+1. Use Node.js 20.9+ and PostgreSQL (Neon works).
+2. Copy `.env.example` to `.env` and set DATABASE_URL, AUTH_SECRET, AUTH_URL and CORE_EMAILS.
+3. Install dependencies: `npm install`.
+4. Generate Prisma client: `npx prisma generate`.
+5. Apply the schema: `npx prisma db push` (or create a migration with `npx prisma migrate dev --name core-roles`).
+6. Every core member must create a normal account using their own email first.
+7. Put all core-member signup emails in CORE_EMAILS, comma-separated, then run `npm run db:seed`.
+8. Restart the dev server and have core members sign out and sign in again so their role is refreshed in the session.
+9. Start: `npm run dev`.
 
-Keep the President seed password private; rotate it after first login. Never use NEXT_PUBLIC_ for secrets.
+## Main routes
+- `/signup`, `/login`, `/events`, `/my-registrations`
+- `/admin` (CORE only), `/admin/events/new`, `/admin/events/[id]`
 
-## Routes
-- `/`, `/signup`, `/login`
-- `/events`, `/events/register/[id]`, `/my-registrations`
-- `/admin`, `/admin/events/new`, `/admin/events/[id]`
-
-## API
-- `POST /api/signup`; Auth.js endpoints at `/api/auth/*`
-- `GET /api/events`, `POST /api/events` (ADMIN only)
-- `GET/POST /api/registrations`
-- `GET/PATCH/DELETE /api/admin/events/[id]` (ADMIN only)
-- `GET /api/admin/events/[id]/registrations` (ADMIN only)
-
-Before production, add email verification, rate limiting, backups and monitoring; configure HTTPS and a strong unique auth secret.
+## Security
+- Passwords use bcrypt hashing and Auth.js JWT sessions.
+- API routes check CORE permissions server-side.
+- A unique database constraint prevents duplicate event registrations.
+- Keep DATABASE_URL, AUTH_SECRET and CORE_EMAILS private. Use HTTPS in production.
