@@ -9,7 +9,7 @@ datasource db {
 
 enum Role {
   USER
-  ADMIN
+  CORE
 }
 
 enum EventStatus {
@@ -20,15 +20,15 @@ enum EventStatus {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  name         String
-  email        String         @unique
-  passwordHash String
-  role         Role           @default(USER)
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(USER)
   registrations Registration[]
-  eventsCreated Event[]       @relation("EventCreator")
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  eventsCreated Event[]        @relation("EventCreator")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Event {
