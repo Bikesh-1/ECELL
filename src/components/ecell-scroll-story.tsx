@@ -85,8 +85,8 @@ export default function EcellScrollStory() {
   }, []);
 
   return (
-    <section ref={root} className="story-section relative my-12 bg-[#111014] text-[#F4F0EB]" aria-label="The E-Cell journey">
-      <div className="story-sticky relative flex min-h-screen items-center overflow-hidden px-5 py-20 sm:px-8 lg:px-12">
+    <section ref={root} className="story-section relative my-12 min-h-[300vh] bg-[#111014] text-[#F4F0EB]" aria-label="The E-Cell journey">
+      <div className="story-sticky sticky top-0 flex h-screen min-h-screen items-center overflow-hidden px-5 py-16 sm:px-8 lg:px-12">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(#ffffff_0.7px,transparent_0.7px)] [background-size:25px_25px]" />
         <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-1/4 h-[420px] w-[420px] rounded-full border border-[#6D4DFE]/25" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-40 bottom-[-12rem] h-[560px] w-[560px] rounded-full border border-[#FF5A36]/20" />
