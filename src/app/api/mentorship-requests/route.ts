@@ -11,7 +11,7 @@ export async function GET() {
     include: { student: { select: { name: true, email: true } }, mentor: { include: { user: { select: { name: true } } } } },
     orderBy: { createdAt: "desc" },
   });
-  return NextResponse.json({ requests });
+  return NextResponse.json({ requests: requests.map((item) => ({ ...item, canRespond: item.mentor.userId === session.user.id })) });
 }
 
 export async function POST(request: Request) {
