@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { auth } from "@/lib/auth";
+import SiteNavbar from "@/components/site-navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -6,6 +8,14 @@ export const metadata: Metadata = {
   description: "Discover and register for E-Cell SMVIT events.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await auth();
+  return (
+    <html lang="en">
+      <body>
+        {session && <SiteNavbar role={session.user?.role} />}
+        {children}
+      </body>
+    </html>
+  );
 }
