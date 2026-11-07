@@ -47,6 +47,7 @@ export default async function AdminPage() {
           ))}
         </section>
 
+        <section className="mt-9 grid gap-3 sm:grid-cols-3"><Link href="/admin/check-in" className="rounded-xl border-2 border-[#171717] bg-[#FF5A36] p-4 text-sm font-black shadow-[0_4px_0_#171717]">QR event check-in ↗</Link><Link href="/admin/startup-ideas" className="rounded-xl border-2 border-[#171717] bg-[#B9A9FF] p-4 text-sm font-black shadow-[0_4px_0_#171717]">Review startup ideas ↗</Link><Link href="/mentor-requests" className="rounded-xl border-2 border-[#171717] bg-white p-4 text-sm font-black shadow-[0_4px_0_#171717]">Mentorship inbox ↗</Link></section>
         <section className="mt-12">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
             <div><p className="text-xs font-black tracking-[.2em] text-[#6D4DFE]">WORKSPACE</p><h2 className="mt-2 text-2xl font-black tracking-tight text-[#171717]">Manage events</h2></div>
