@@ -30,13 +30,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as "USER" | "ADMIN";
+        session.user.role = token.role as "USER" | "CORE";
       }
       return session;
     },
     authorized({ auth, request }) {
       const path = request.nextUrl.pathname;
-      if (path.startsWith("/admin") || path.startsWith("/api/admin")) return auth?.user?.role === "ADMIN";
+      if (path.startsWith("/admin") || path.startsWith("/api/admin")) return auth?.user?.role === "CORE";
       return true;
     },
   },
