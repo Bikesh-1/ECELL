@@ -13,7 +13,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body>
-        {session && <SiteNavbar role={session.user?.role} />}
+        <SiteNavbar authenticated={!!session} role={session?.user?.role} />
         {children}
       </body>
     </html>
