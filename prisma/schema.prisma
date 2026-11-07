@@ -33,6 +33,11 @@ model User {
   role          Role           @default(USER)
   registrations Registration[]
   eventsCreated Event[]        @relation("EventCreator")
+  startupIdeas  StartupIdea[]
+  mentorProfile MentorProfile?
+  mentorshipRequests MentorshipRequest[]
+  certificates Certificate[]
+  activityPoints ActivityPoint[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -60,6 +65,7 @@ model Event {
   createdBy            User              @relation("EventCreator", fields: [createdById], references: [id])
   registrations        Registration[]
   rounds               EventRound[]
+  certificates         Certificate[]
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
 
@@ -89,6 +95,8 @@ model Registration {
   user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   event             Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
   teamMembers       TeamMember[]
+  checkInCode       String       @unique @default(cuid())
+  checkedInAt       DateTime?
 
   @@unique([userId, eventId])
   @@index([eventId, registeredAt])
@@ -104,4 +112,94 @@ model TeamMember {
   registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
 
   @@index([registrationId])
+}
+
+
+enum IdeaStatus {
+  SUBMITTED
+  REVIEWING
+  SHORTLISTED
+  ACCEPTED
+  DECLINED
+}
+
+enum MentorshipStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  COMPLETED
+}
+
+model StartupIdea {
+  id          String     @id @default(cuid())
+  title       String
+  problem     String     @db.Text
+  solution    String     @db.Text
+  category    String
+  stage       String     @default("IDEA")
+  pitchUrl    String?
+  status      IdeaStatus @default(SUBMITTED)
+  feedback    String?    @db.Text
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status, createdAt])
+  @@index([userId, createdAt])
+}
+
+model MentorProfile {
+  id          String   @id @default(cuid())
+  headline    String
+  bio         String   @db.Text
+  expertise   String
+  company     String?
+  linkedinUrl String?
+  isAvailable Boolean  @default(true)
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  requests    MentorshipRequest[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MentorshipRequest {
+  id          String           @id @default(cuid())
+  message     String           @db.Text
+  status      MentorshipStatus @default(PENDING)
+  studentId   String
+  mentorId    String
+  student     User             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  mentor      MentorProfile    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([studentId, mentorId])
+  @@index([mentorId, status])
+}
+
+model Certificate {
+  id          String   @id @default(cuid())
+  code        String   @unique @default(cuid())
+  title       String
+  recipient   String
+  issuedAt    DateTime @default(now())
+  userId      String
+  eventId     String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event       Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+
+  @@index([userId, issuedAt])
+}
+
+model ActivityPoint {
+  id        String   @id @default(cuid())
+  points    Int
+  reason    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
 }

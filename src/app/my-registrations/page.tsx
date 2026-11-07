@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import RegistrationQr from "@/components/registration-qr";
 
 export default async function MyRegistrationsPage() {
   const session = await auth();
@@ -29,7 +30,7 @@ export default async function MyRegistrationsPage() {
                 {item.teamName && <p className="text-sm text-[#66666c]"><b className="text-[#171717]">Team name</b><br/>{item.teamName}</p>}
                 {item.teamMembers.length>0 && <p className="text-sm text-[#66666c] sm:col-span-2"><b className="text-[#171717]">Team members</b><br/>{item.teamMembers.map(m=>m.name).join(", ")}</p>}
               </div>
-              <p className="mt-5 text-[11px] font-semibold text-[#88888d]">Registered on {item.registeredAt.toLocaleDateString("en-IN")}</p>
+              <div className="mt-5 grid gap-4 border-t border-[#171717]/10 pt-5 sm:grid-cols-2 sm:items-center"><p className="text-[11px] font-semibold text-[#88888d]">Registered on {item.registeredAt.toLocaleDateString("en-IN")}{item.checkedInAt ? " · Checked in" : ""}</p><RegistrationQr code={item.checkInCode} /></div>
             </article>
           ))}
           {registrations.length === 0 && <div className="rounded-2xl border-2 border-dashed border-[#171717]/40 bg-white/60 p-10 text-center"><p className="font-black text-[#171717]">No registrations yet</p><p className="mt-2 text-sm text-[#66666c]">Find an event and reserve your spot.</p><Link className="ec-btn mt-5" href="/events">Explore events ↗</Link></div>}
