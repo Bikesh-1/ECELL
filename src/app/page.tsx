@@ -14,7 +14,7 @@ export default async function Home() {
 
       <header className="w-full ">
         <header className="w-full">
-          <nav className="mx-auto grid max-w-[90vw] grid-cols-2 items-center rounded-2xl border-2 border-[#171717] bg-white shadow-[0_7px_0_#171717,0_14px_25px_rgba(0,0,0,0.12)] transition-all duration-300 md:grid-cols-[1fr_2fr_1fr] md:px-10">
+          <nav className="mx-auto grid max-w-[94vw] grid-cols-2 items-center gap-4 rounded-2xl border-2 border-[#171717] bg-white px-5 shadow-[0_7px_0_#171717,0_14px_25px_rgba(0,0,0,0.12)] transition-all duration-300 md:grid-cols-[auto_minmax(0,1fr)_auto] md:gap-8 md:px-8">
 
             <Link href="/" className="flex items-center">
               <img
@@ -25,7 +25,7 @@ export default async function Home() {
             </Link>
 
             {/* NAVIGATION */}
-            <div className="hidden items-center justify-center gap-8 md:flex">
+            <div className="hidden min-w-0 items-center justify-center gap-6 lg:flex xl:gap-8">
               {[
                 { name: "HOME", href: "/" },
                 { name: "EVENTS", href: "/events" },
@@ -35,7 +35,7 @@ export default async function Home() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="relative text-sm font-bold tracking-wide text-[#171717] transition-colors duration-300 hover:text-[#FF5A36] after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#FF5A36] after:transition-all after:duration-300 hover:after:w-full"
+                  className="relative whitespace-nowrap text-sm font-bold tracking-wide text-[#171717] transition-colors duration-300 hover:text-[#FF5A36] after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#FF5A36] after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
                 </Link>
@@ -43,12 +43,12 @@ export default async function Home() {
             </div>
 
             {/* RIGHT SIDE */}
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2 sm:gap-4 lg:gap-5">
               {session ? (
                 <>
                   <Link
                     href="/my-registrations"
-                    className="hidden text-sm font-bold text-[#171717] hover:text-[#FF5A36] lg:block"
+                    className="hidden shrink-0 whitespace-nowrap text-sm font-bold text-[#171717] hover:text-[#FF5A36] lg:block"
                   >
                     My Registrations
                   </Link>
@@ -56,7 +56,7 @@ export default async function Home() {
                   {session.user.role === "CORE" && (
                     <Link
                       href="/admin"
-                      className="hidden text-sm font-bold text-[#171717] hover:text-[#6D4DFE] lg:block"
+                      className="hidden shrink-0 whitespace-nowrap text-sm font-bold text-[#171717] hover:text-[#6D4DFE] lg:block"
                     >
                       Core Dashboard
                     </Link>
