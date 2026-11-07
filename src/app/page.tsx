@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import FloatingEcellCard from "@/components/floating-ecell-card";
 import HomeMotion from "@/components/home-motion";
 import InteractiveDotField from "@/components/interactive-dot-field";
+import EcellScrollStory from "@/components/ecell-scroll-story";
 
 export default async function Home() {
   const events = await prisma.event.findMany({
@@ -64,6 +65,8 @@ export default async function Home() {
 
           <div aria-hidden="true" className="pointer-events-none absolute -bottom-2 right-[2%] hidden select-none text-[clamp(5rem,16vw,15rem)] font-black leading-none tracking-[-.1em] text-[#171717]/[0.035] xl:block">CREATE.</div>
         </section>
+
+        <EcellScrollStory />
 
         <section className="impact-strip relative z-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border-2 border-[#171717] bg-[#171717] shadow-[0_6px_0_#171717] sm:grid-cols-4">
           {[
