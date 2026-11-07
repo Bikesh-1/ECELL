@@ -16,7 +16,7 @@ export default async function Home() {
     <main className="relative isolate min-h-screen overflow-hidden bg-[#E0E0E1] text-[#171717]">
       <InteractiveDotField />
 
-      <div className="mx-auto max-w-[1440px] px-5 pb-16 pt-8 sm:px-8 lg:px-12">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 pb-16 pt-8 sm:px-8 lg:px-12">
         <section className="hero-section relative grid min-h-[680px] items-center gap-8 border-b border-[#171717]/15 pb-16 pt-10 lg:grid-cols-[1.08fr_.92fr] lg:gap-12 lg:pb-20 lg:pt-12">
           <div className="hero-content relative z-10">
             <div className="hero-badge inline-flex items-center gap-3 rounded-full border border-[#171717]/15 bg-white/70 px-4 py-2.5 shadow-sm backdrop-blur-xl">
