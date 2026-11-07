@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (session?.user?.role !== "CORE") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const { id } = await context.params;
   const event = await prisma.event.findUnique({
     where: { id },
