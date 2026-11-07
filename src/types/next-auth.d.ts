@@ -1,8 +1,9 @@
 import "next-auth";
+import type { DefaultSession } from "next-auth";
 declare module "next-auth" {
   interface User { role: "USER" | "ADMIN"; }
   interface Session {
-    user: { id: string; role: "USER" | "ADMIN" } & NonNullable<Session["user"]>;
+    user: { id: string; role: "USER" | "ADMIN" } & DefaultSession["user"];
   }
 }
 declare module "next-auth/jwt" {
