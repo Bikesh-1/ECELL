@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import SignOutButton from "@/components/signout-button";
 
 export default async function Home() {
   const session = await auth();
@@ -10,7 +11,7 @@ export default async function Home() {
       <strong>E-CELL <span style={{ color: "#4f47ea" }}>SMVIT</span></strong>
       <nav style={{ display: "flex", gap: 18, alignItems: "center" }}>
         <Link href="/events">Events</Link>
-        {session ? <><Link href="/my-registrations">My registrations</Link>{session.user.role === "ADMIN" && <Link href="/admin">Admin</Link>}<Link href="/api/auth/signout">Sign out</Link></> : <><Link href="/login">Login</Link><Link className="btn" href="/signup">Create account</Link></>}
+        {session ? <><Link href="/my-registrations">My registrations</Link>{session.user.role === "ADMIN" && <Link href="/admin">Admin</Link>}<SignOutButton /></> : <><Link href="/login">Login</Link><Link className="btn" href="/signup">Create account</Link></>}
       </nav>
     </header>
     <section style={{ padding: "48px 0 60px" }}>
