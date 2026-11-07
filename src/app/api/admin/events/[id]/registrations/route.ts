@@ -8,7 +8,16 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
   const { id } = await context.params;
   const event = await prisma.event.findUnique({
     where: { id },
-    include: { registrations: { include: { user: { select: { id: true, name: true, email: true } } }, orderBy: { registeredAt: "desc" } } },
+    include: {
+      registrations: {
+        include: {
+          user: { select: { id: true, name: true, email: true } },
+          teamMembers: true,
+        },
+        orderBy: { registeredAt: "desc" },
+      },
+      rounds: { orderBy: { order: "asc" } },
+    },
   });
   if (!event) return NextResponse.json({ error: "Event not found." }, { status: 404 });
   return NextResponse.json({ event, registrations: event.registrations });
