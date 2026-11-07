@@ -14,7 +14,7 @@ export default async function Home() {
   });
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-[#E0E0E1] text-[#171717]">
+    <main className="relative isolate min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <InteractiveDotField />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-5 pb-16 pt-8 sm:px-8 lg:px-12">
