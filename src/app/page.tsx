@@ -14,29 +14,21 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
-        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center overflow-hidden rounded-[26px] border-2 border-[#171717] bg-[#6D4DFE] px-6 py-12 text-center text-white shadow-[0_8px_0_#171717] sm:px-12 sm:py-16 lg:py-20">
-          <div className="mb-8 flex h-16 items-center justify-center rounded-xl border-2 border-[#171717] bg-white px-6 py-3 shadow-[0_4px_0_#171717]">
-            <img src="https://ik.imagekit.io/es6xialea/blacklogo.svg" alt="E-Cell SMVIT logo" className="h-10 w-auto object-contain" />
-          </div>
-          <p className="text-[11px] font-black uppercase tracking-[.22em] text-white/75">Entrepreneurship Cell · SMVIT</p>
-          <h1 className="mt-5 max-w-4xl text-[clamp(2.3rem,6vw,5.2rem)] font-black uppercase leading-[.98] tracking-[-.065em] text-white">
+        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center overflow-hidden rounded-[26px] border-2 border-[#171717] bg-white px-6 py-10 text-center shadow-[0_8px_0_#171717] sm:px-12 sm:py-14 lg:py-16">
+          <p className="text-[10px] font-black uppercase tracking-[.2em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
+          <h1 className="mt-5 max-w-4xl text-[clamp(2rem,4.8vw,4.2rem)] font-black uppercase leading-[1.02] tracking-[-.065em] text-[#6D4DFE]">
             Where aspiration<br className="hidden sm:block" /> meets opportunity.
           </h1>
-          <p className="mt-6 max-w-2xl text-sm font-medium leading-7 text-white/85 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-sm font-medium leading-7 text-[#55555d] sm:text-base">
             A launchpad for curious minds, bold builders and future founders. Find your people, turn ideas into action, and make things happen.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href="/events" className="inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-white px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white active:translate-y-1 active:shadow-none">
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <Link href="/events" className="inline-flex min-h-11 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-2.5 text-sm font-black text-white shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-white hover:text-[#6D4DFE] active:translate-y-1 active:shadow-none">
               Explore events <span aria-hidden="true">↗</span>
             </Link>
-            <Link href="/signup" className="inline-flex min-h-12 items-center rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-3 text-sm font-black text-white shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-white hover:text-[#171717] active:translate-y-1 active:shadow-none">
+            <Link href="/signup" className="inline-flex min-h-11 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-2.5 text-sm font-black text-[#6D4DFE] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#6D4DFE] hover:text-white active:translate-y-1 active:shadow-none">
               Join the community
             </Link>
-          </div>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t-2 border-white/25 pt-5 text-[11px] font-black uppercase tracking-[.14em] text-white/75">
-            <span>Build</span><span className="h-1 w-1 rounded-full bg-white" />
-            <span>Connect</span><span className="h-1 w-1 rounded-full bg-white" />
-            <span>Launch</span><span className="hidden sm:inline">· Bengaluru, India</span>
           </div>
         </section>
 
