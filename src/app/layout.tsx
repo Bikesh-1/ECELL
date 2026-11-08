@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import { auth } from "@/lib/auth";
 import SiteNavbar from "@/components/site-navbar";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" });
 
 export const metadata: Metadata = {
   title: "E-Cell SMVIT | Events",
@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const session = await auth();
   return (
     <html lang="en">
-      <body className={plusJakarta.className}>
+      <body className={spaceGrotesk.className}>
         <SiteNavbar authenticated={!!session} role={session?.user?.role} />
         {children}
       </body>
