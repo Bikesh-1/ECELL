@@ -118,7 +118,12 @@ export default async function Home() {
 
         <footer className="flex flex-col gap-3 pt-8 text-xs text-[#77777d] sm:flex-row sm:items-center sm:justify-between">
           <span>E-Cell · SMVIT Bengaluru</span><span>Think different. Build together.</span>
-          <Link href="/events" className="font-semibold text-[#6D4DFE] hover:text-[#FF5A36]">Explore the ecosystem ↗</Link>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 font-semibold">
+            <Link href="/about" className="text-[#6D4DFE] hover:text-[#FF5A36]">About E-Cell</Link>
+            <Link href="/startups" className="text-[#6D4DFE] hover:text-[#FF5A36]">Startups backed by E-Cell</Link>
+            <Link href="/team" className="text-[#6D4DFE] hover:text-[#FF5A36]">Meet our team</Link>
+            <Link href="/contact" className="text-[#6D4DFE] hover:text-[#FF5A36]">Contact us</Link>
+          </div>
         </footer>
       </div>
       <HomeMotion />
