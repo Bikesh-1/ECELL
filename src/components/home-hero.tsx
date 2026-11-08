@@ -36,63 +36,82 @@ export default function HomeHero() {
     const targets = targetRefs.map((ref) => ref.current);
     if (!overlay || targets.some((target) => !target)) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      gsap.set(targets, { autoAlpha: 1 });
-      overlay.remove();
-      return;
-    }
-
-    let cancelled = false;
     const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
-    const images = Array.from(overlay.querySelectorAll("img"));
-    const ready = Promise.all(images.map((img) => img.decode().catch(() => undefined)));
+    let cancelled = false;
+    let timeline: gsap.core.Timeline | undefined;
+    let fallbackId = 0;
 
-    ready.then(() => {
-      if (cancelled) return;
-      const sourceRects = sources.map((node) => node.getBoundingClientRect());
+    const finishLoader = () => {
+      if (!overlay.isConnected) return;
+      gsap.to(overlay, {
+        autoAlpha: 0,
+        duration: 0.35,
+        ease: "power2.out",
+        onComplete: () => overlay.remove(),
+      });
+    };
+
+    const startAnimation = () => {
+      if (cancelled || !overlay.isConnected) return;
+
       const targetRects = targets.map((node) => node!.getBoundingClientRect());
+      const sourceRects = sources.map((node) => node.getBoundingClientRect());
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(targets, { autoAlpha: 1 });
+        overlay.remove();
+        return;
+      }
 
       gsap.set(targets, { autoAlpha: 0 });
-      const timeline = gsap.timeline({
+      timeline = gsap.timeline({
         defaults: { ease: "power3.inOut" },
         onComplete: () => {
           gsap.set(targets, { autoAlpha: 1 });
-          gsap.to(overlay, {
-            autoAlpha: 0,
-            duration: 0.45,
-            ease: "power2.out",
-            onComplete: () => overlay.remove(),
-          });
+          finishLoader();
         },
       });
 
       timeline
-        .fromTo("[data-welcome]", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, ease: "power3.out" })
-        .to("[data-welcome]", { y: -18, autoAlpha: 0, duration: 0.4, delay: 0.55, ease: "power2.in" });
+        .fromTo("[data-welcome]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: "power3.out" })
+        .to("[data-welcome]", { y: -16, autoAlpha: 0, duration: 0.35, delay: 0.45, ease: "power2.in" });
 
       sources.forEach((source, index) => {
         const from = sourceRects[index];
         const to = targetRects[index];
-        timeline.to(source, {
+        timeline!.to(source, {
           x: to.left - from.left,
           y: to.top - from.top,
           width: to.width,
           height: to.height,
           rotation: 0,
           scale: 1,
-          duration: 1.15,
+          duration: 1.05,
           ease: "power4.inOut",
-        }, index === 0 ? "<" : "<+=0.08");
+        }, index === 0 ? "<" : "<+=0.1");
       });
 
-      timeline.to("[data-loader-mark]", { scale: 0.72, autoAlpha: 0, duration: 0.35 }, "-=0.75");
-    });
+      timeline.to("[data-loader-mark]", { scale: 0.75, autoAlpha: 0, duration: 0.3 }, "-=0.7");
+    };
+
+    // Never let a slow or blocked image request keep the intro screen open.
+    fallbackId = window.setTimeout(() => {
+      if (cancelled) return;
+      if (!timeline) {
+        gsap.set(targets, { autoAlpha: 1 });
+        overlay.remove();
+      }
+    }, 4500);
+
+    requestAnimationFrame(() => requestAnimationFrame(startAnimation));
 
     return () => {
       cancelled = true;
+      window.clearTimeout(fallbackId);
+      timeline?.kill();
       gsap.killTweensOf(overlay);
       gsap.killTweensOf(sources);
+      gsap.killTweensOf(targets);
     };
   }, []);
 
