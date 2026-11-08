@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+
 
 const photos = [
   {
@@ -29,56 +28,9 @@ function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
-  const [showIntro, setShowIntro] = useState(true);
   const targetRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
-  useEffect(() => {
-    if (!showIntro) return;
 
-    const overlay = loaderRef.current;
-    const targets = targetRefs.map((ref) => ref.current);
-    let timeline: gsap.core.Timeline | undefined;
-
-    // Independent React timer guarantees the welcome screen always exits.
-    const exitTimer = window.setTimeout(() => setShowIntro(false), 3200);
-
-    if (overlay && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      try {
-        const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
-        if (sources.length === 2 && targets.every(Boolean)) {
-          const sourceRects = sources.map((node) => node.getBoundingClientRect());
-          const targetRects = targets.map((node) => node!.getBoundingClientRect());
-
-          timeline = gsap.timeline();
-          timeline
-            .fromTo("[data-welcome]", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: "power3.out" })
-            .to("[data-welcome]", { y: -18, autoAlpha: 0, duration: 0.35, delay: 0.55, ease: "power2.in" });
-
-          sources.forEach((source, index) => {
-            const from = sourceRects[index];
-            const to = targetRects[index];
-            timeline!.to(source, {
-              x: to.left - from.left,
-              y: to.top - from.top,
-              width: to.width,
-              height: to.height,
-              rotation: 0,
-              duration: 1.1,
-              ease: "power3.inOut",
-            }, index === 0 ? 0.9 : 1.0);
-          });
-          timeline.to("[data-loader-mark]", { scale: 0.78, autoAlpha: 0, duration: 0.35 }, 1.8);
-        }
-      } catch {
-        // The timer below still dismisses the intro if animation setup fails.
-      }
-    }
-
-    return () => {
-      window.clearTimeout(exitTimer);
-      timeline?.kill();
-    };
-  }, [showIntro]);
 
   return (
     <>
@@ -122,9 +74,9 @@ export default function HomeHero() {
         </div>
       </section>
 
-      {showIntro && <div
+      <div
         ref={loaderRef}
-        className="fixed inset-0 z-[200] flex items-center justify-center overflow-hidden bg-[#E0E0E1]"
+        className="ecell-welcome-loader fixed inset-0 z-[200] flex items-center justify-center overflow-hidden bg-[#E0E0E1]"
         aria-label="Welcome to E-Cell SMVIT"
         role="status"
       >
@@ -143,7 +95,7 @@ export default function HomeHero() {
         <div data-intro-photo className="absolute right-[5vw] top-[24%] w-[34vw] max-w-[210px] rotate-6 sm:right-[9vw] sm:top-[23%] sm:w-[23vw]">
           <PhotoCard photo={photos[1]} />
         </div>
-      </div>}
-    </>
+      </div>
+      <style>{`\n        @keyframes ecellWelcomeExit {\n          0%, 72% { opacity: 1; visibility: visible; }\n          100% { opacity: 0; visibility: hidden; }\n        }\n        @keyframes ecellWelcomeText {\n          0% { opacity: 0; transform: translateY(22px); }\n          15%, 70% { opacity: 1; transform: translateY(0); }\n          100% { opacity: 0; transform: translateY(-18px); }\n        }\n        @keyframes ecellIntroLeft {\n          0%, 18% { transform: translate3d(0, 0, 0) rotate(-6deg); }\n          75% { transform: translate3d(2vw, -3vh, 0) rotate(0deg); }\n          100% { transform: translate3d(2vw, -3vh, 0) rotate(0deg); }\n        }\n        @keyframes ecellIntroRight {\n          0%, 18% { transform: translate3d(0, 0, 0) rotate(6deg); }\n          75% { transform: translate3d(-2vw, 3vh, 0) rotate(0deg); }\n          100% { transform: translate3d(-2vw, 3vh, 0) rotate(0deg); }\n        }\n        .ecell-welcome-loader { animation: ecellWelcomeExit 3.8s ease forwards; }\n        .ecell-welcome-loader [data-welcome] { animation: ecellWelcomeText 3.5s ease both; }\n        .ecell-welcome-loader [data-intro-photo]:first-of-type { animation: ecellIntroLeft 3.5s cubic-bezier(.7,0,.2,1) both; }\n        .ecell-welcome-loader [data-intro-photo]:last-of-type { animation: ecellIntroRight 3.5s cubic-bezier(.7,0,.2,1) both; }\n        @media (prefers-reduced-motion: reduce) { .ecell-welcome-loader { animation-duration: 1ms; } }\n      `}</style>\n    </>
   );
 }
