@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const photos = [
@@ -29,81 +29,82 @@ function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
+  const [showIntro, setShowIntro] = useState(false);
+
+  useEffect(() => {
+    setShowIntro(true);
+  }, []);
   const targetRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
   useLayoutEffect(() => {
+    if (!showIntro) return;
     const overlay = loaderRef.current;
     const targets = targetRefs.map((ref) => ref.current);
-    if (!overlay) return;
+    if (!overlay) {
+      setShowIntro(false);
+      return;
+    }
 
-    const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
-    let timeline: gsap.core.Timeline | null = null;
-    let finished = false;
-    let fallbackTimer = 0;
-
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      if (fallbackTimer) window.clearTimeout(fallbackTimer);
+    let completed = false;
+    let timeline: gsap.core.Timeline | undefined;
+    const complete = () => {
+      if (completed) return;
+      completed = true;
       timeline?.kill();
-      if (targets.length) gsap.set(targets.filter(Boolean), { clearProps: "opacity,visibility,transform" });
-      overlay.remove();
+      setShowIntro(false);
     };
 
-    // Hard deadline: this runs even if GSAP, image decoding, or animation callbacks fail.
-    fallbackTimer = window.setTimeout(finish, 4000);
+    // A React state transition removes the overlay; it does not rely on DOM removal or GSAP callbacks.
+    const hardStop = window.setTimeout(complete, 3500);
 
-    const begin = () => {
-      if (finished || !overlay.isConnected) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || targets.some((node) => !node)) {
-        finish();
+    try {
+      const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || targets.some((node) => !node) || sources.length !== targets.length) {
+        window.clearTimeout(hardStop);
+        complete();
         return;
       }
 
-      try {
-        const fromRects = sources.map((node) => node.getBoundingClientRect());
-        const toRects = targets.map((node) => node!.getBoundingClientRect());
-        gsap.set(targets, { autoAlpha: 0 });
+      const sourceRects = sources.map((node) => node.getBoundingClientRect());
+      const targetRects = targets.map((node) => node!.getBoundingClientRect());
+      gsap.set(targets, { autoAlpha: 0 });
 
-        timeline = gsap.timeline({
-          onComplete: finish,
-          onInterrupt: finish,
-        });
+      timeline = gsap.timeline({
+        onComplete: () => {
+          gsap.set(targets, { clearProps: "opacity,visibility,transform" });
+          window.clearTimeout(hardStop);
+          complete();
+        },
+      });
 
-        timeline
-          .fromTo("[data-welcome]", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" })
-          .to("[data-welcome]", { y: -14, autoAlpha: 0, duration: 0.3, delay: 0.35, ease: "power2.in" });
+      timeline
+        .fromTo("[data-welcome]", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" })
+        .to("[data-welcome]", { y: -16, autoAlpha: 0, duration: 0.3, delay: 0.35, ease: "power2.in" });
 
-        sources.forEach((source, index) => {
-          const from = fromRects[index];
-          const to = toRects[index];
-          timeline!.to(source, {
-            x: to.left - from.left,
-            y: to.top - from.top,
-            width: to.width,
-            height: to.height,
-            rotation: 0,
-            duration: 0.85,
-            ease: "power3.inOut",
-          }, index === 0 ? "<" : "<+=0.08");
-        });
-
-        timeline.to("[data-loader-mark]", { scale: 0.8, autoAlpha: 0, duration: 0.25 }, "-=0.55");
-      } catch {
-        finish();
-      }
-    };
-
-    const frame = window.requestAnimationFrame(() => window.requestAnimationFrame(begin));
+      sources.forEach((source, index) => {
+        const from = sourceRects[index];
+        const to = targetRects[index];
+        timeline!.to(source, {
+          x: to.left - from.left,
+          y: to.top - from.top,
+          width: to.width,
+          height: to.height,
+          rotation: 0,
+          duration: 0.8,
+          ease: "power3.inOut",
+        }, index === 0 ? "<" : "<+=0.08");
+      });
+      timeline.to("[data-loader-mark]", { scale: 0.8, autoAlpha: 0, duration: 0.25 }, "-=0.5");
+    } catch {
+      window.clearTimeout(hardStop);
+      complete();
+    }
 
     return () => {
-      window.cancelAnimationFrame(frame);
-      if (fallbackTimer) window.clearTimeout(fallbackTimer);
+      window.clearTimeout(hardStop);
       timeline?.kill();
-      gsap.killTweensOf(sources);
-      gsap.killTweensOf(targets);
     };
-  }, []);
+  }, [showIntro]);
 
   return (
     <>
@@ -147,7 +148,7 @@ export default function HomeHero() {
         </div>
       </section>
 
-      <div
+      {showIntro && <div
         ref={loaderRef}
         className="fixed inset-0 z-[200] flex items-center justify-center overflow-hidden bg-[#E0E0E1]"
         aria-label="Welcome to E-Cell SMVIT"
@@ -168,7 +169,7 @@ export default function HomeHero() {
         <div data-intro-photo className="absolute right-[5vw] top-[24%] w-[34vw] max-w-[210px] rotate-6 sm:right-[9vw] sm:top-[23%] sm:w-[23vw]">
           <PhotoCard photo={photos[1]} />
         </div>
-      </div>
+      </div>}
     </>
   );
 }
