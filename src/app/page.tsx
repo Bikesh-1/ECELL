@@ -14,24 +14,36 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
-        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center px-5 py-10 text-center sm:px-10 sm:py-14 lg:py-16">
-          <div className="mb-7 flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-[#171717] bg-white p-3 shadow-[0_5px_0_#171717] sm:h-24 sm:w-24">
+        <section
+          className="relative isolate mx-auto mt-5 flex min-h-[570px] max-w-7xl flex-col items-center justify-center overflow-hidden px-5 py-14 text-center sm:min-h-[610px] sm:px-10"
+          style={{ backgroundImage: "radial-gradient(#6D4DFE22 1.15px, transparent 1.15px)", backgroundSize: "19px 19px" }}
+        >
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#E0E0E1]/30 to-transparent" />
+          <div className="relative z-10 mb-7 flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-[#171717] bg-white p-3 shadow-[0_5px_0_#171717] sm:h-24 sm:w-24">
             <img src="https://ik.imagekit.io/es6xialea/blacklogo.svg" alt="E-Cell SMVIT logo" className="h-full w-full object-contain" />
           </div>
-          <p className="text-[10px] font-black uppercase tracking-[.22em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
-          <h1 className="mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black leading-[1.04] tracking-[-.065em] text-[#171717]">
+          <p className="relative z-10 text-[10px] font-black uppercase tracking-[.22em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
+          <h1 className="relative z-10 mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black leading-[1.04] tracking-[-.065em] text-[#171717]">
             Where ideas meet <span className="text-[#6D4DFE]">opportunity.</span>
           </h1>
-          <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-[#686870] sm:text-base">
+          <p className="relative z-10 mt-5 max-w-xl text-sm font-medium leading-7 text-[#686870] sm:text-base">
             A space for curious minds, bold builders and future founders to connect, create and turn ambition into action.
           </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
+          <div className="relative z-10 mt-7 flex flex-wrap justify-center gap-3">
             <Link href="/events" className="inline-flex min-h-11 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-2.5 text-sm font-black text-white shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-white hover:text-[#6D4DFE] active:translate-y-1 active:shadow-none">
               Explore events <span aria-hidden="true">↗</span>
             </Link>
             <Link href="/signup" className="inline-flex min-h-11 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-2.5 text-sm font-black text-[#171717] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#6D4DFE] hover:text-white active:translate-y-1 active:shadow-none">
               Join the community
             </Link>
+          </div>
+          <div className="pointer-events-none absolute left-5 top-1/2 hidden w-52 -translate-y-1/2 -rotate-6 overflow-hidden rounded-2xl border-2 border-[#171717] bg-white p-2 shadow-[0_7px_0_#171717] lg:block xl:left-12 xl:w-60">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=85" alt="Students collaborating on an idea" className="h-36 w-full rounded-lg object-cover xl:h-40" />
+            <p className="px-2 pb-1 pt-3 text-left text-xs font-black uppercase tracking-wider text-[#6D4DFE]">Build together</p>
+          </div>
+          <div className="pointer-events-none absolute right-5 top-1/2 hidden w-52 translate-y-[-42%] rotate-6 overflow-hidden rounded-2xl border-2 border-[#171717] bg-white p-2 shadow-[0_7px_0_#171717] lg:block xl:right-12 xl:w-60">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=85" alt="Entrepreneurship workshop and discussion" className="h-36 w-full rounded-lg object-cover xl:h-40" />
+            <p className="px-2 pb-1 pt-3 text-left text-xs font-black uppercase tracking-wider text-[#6D4DFE]">Make it happen</p>
           </div>
         </section>
 
