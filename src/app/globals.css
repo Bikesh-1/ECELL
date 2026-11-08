@@ -41,18 +41,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .ec-card-hover:hover { transform: translateY(-2px); border-color: rgba(109,77,254,.28); box-shadow: 0 8px 24px rgba(23,23,23,.07); }
 .ec-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-  min-height: 44px; border: 1px solid transparent; border-radius: 10px;
-  padding: 10px 18px; background: var(--ec-purple); color: white;
-  font-size: 14px; font-weight: 700;
-  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
-  cursor: pointer;
+  min-height: 44px; border: 2px solid var(--ec-ink); border-radius: 12px;
+  padding: 12px 20px; background: var(--ec-purple); color: white;
+  font-size: 14px; font-weight: 800; box-shadow: 0 5px 0 var(--ec-ink);
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease; cursor: pointer;
 }
-.ec-btn:hover { transform: translateY(-1px); background: #5B3FE0; }
-.ec-btn:active { transform: translateY(0); }
+.ec-btn:hover { transform: translateY(-2px); background: var(--ec-ink); box-shadow: 0 7px 0 var(--ec-purple); }
+.ec-btn:active { transform: translateY(2px); box-shadow: none; }
 .ec-btn-orange { background: var(--ec-orange); color: var(--ec-ink); }
-.ec-btn-orange:hover { background: #F04C29; color: var(--ec-ink); }
-.ec-btn-outline { border-color: rgba(23,23,23,.14); background: white; color: var(--ec-ink); }
-.ec-btn-outline:hover { border-color: var(--ec-purple); background: rgba(109,77,254,.05); color: var(--ec-purple); }
+.ec-btn-orange:hover { background: var(--ec-ink); color: white; box-shadow: 0 7px 0 var(--ec-orange); }
+.ec-btn-outline { background: white; color: var(--ec-ink); }
+.ec-btn-outline:hover { background: var(--ec-orange); color: var(--ec-ink); }
 .ec-field {
   width: 100%; margin-top: 8px; border: 1px solid rgba(23,23,23,.16);
   border-radius: 10px; background: white; padding: 13px 15px; color: var(--ec-ink);
