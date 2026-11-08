@@ -5,9 +5,10 @@ type SiteNavbarProps = { role?: string | null; authenticated: boolean };
 const links = [
   { name: "Home", href: "/" },
   { name: "Events", href: "/events" },
-  { name: "About us", href: "/about" },
-  { name: "Resources", href: "/resources" },
-  { name: "Community", href: "/leaderboard" },
+  { name: "About E-Cell", href: "/about" },
+  { name: "Startups", href: "/startups" },
+  { name: "Team", href: "/team" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const actionClass = "whitespace-nowrap rounded-xl border-2 border-[#171717] px-4 py-2.5 text-sm font-black text-[#171717] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-0.5 active:translate-y-1 active:shadow-none";
