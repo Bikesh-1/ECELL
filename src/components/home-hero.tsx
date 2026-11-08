@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const photos = [
@@ -29,79 +29,53 @@ function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
-  const [showIntro, setShowIntro] = useState(false);
-
-  useEffect(() => {
-    setShowIntro(true);
-  }, []);
+  const [showIntro, setShowIntro] = useState(true);
   const targetRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!showIntro) return;
+
     const overlay = loaderRef.current;
     const targets = targetRefs.map((ref) => ref.current);
-    if (!overlay) {
-      setShowIntro(false);
-      return;
-    }
-
-    let completed = false;
     let timeline: gsap.core.Timeline | undefined;
-    const complete = () => {
-      if (completed) return;
-      completed = true;
-      timeline?.kill();
-      setShowIntro(false);
-    };
 
-    // A React state transition removes the overlay; it does not rely on DOM removal or GSAP callbacks.
-    const hardStop = window.setTimeout(complete, 3500);
+    // Independent React timer guarantees the welcome screen always exits.
+    const exitTimer = window.setTimeout(() => setShowIntro(false), 3200);
 
-    try {
-      const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || targets.some((node) => !node) || sources.length !== targets.length) {
-        window.clearTimeout(hardStop);
-        complete();
-        return;
+    if (overlay && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      try {
+        const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
+        if (sources.length === 2 && targets.every(Boolean)) {
+          const sourceRects = sources.map((node) => node.getBoundingClientRect());
+          const targetRects = targets.map((node) => node!.getBoundingClientRect());
+
+          timeline = gsap.timeline();
+          timeline
+            .fromTo("[data-welcome]", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: "power3.out" })
+            .to("[data-welcome]", { y: -18, autoAlpha: 0, duration: 0.35, delay: 0.55, ease: "power2.in" });
+
+          sources.forEach((source, index) => {
+            const from = sourceRects[index];
+            const to = targetRects[index];
+            timeline!.to(source, {
+              x: to.left - from.left,
+              y: to.top - from.top,
+              width: to.width,
+              height: to.height,
+              rotation: 0,
+              duration: 1.1,
+              ease: "power3.inOut",
+            }, index === 0 ? 0.9 : 1.0);
+          });
+          timeline.to("[data-loader-mark]", { scale: 0.78, autoAlpha: 0, duration: 0.35 }, 1.8);
+        }
+      } catch {
+        // The timer below still dismisses the intro if animation setup fails.
       }
-
-      const sourceRects = sources.map((node) => node.getBoundingClientRect());
-      const targetRects = targets.map((node) => node!.getBoundingClientRect());
-      gsap.set(targets, { autoAlpha: 0 });
-
-      timeline = gsap.timeline({
-        onComplete: () => {
-          gsap.set(targets, { clearProps: "opacity,visibility,transform" });
-          window.clearTimeout(hardStop);
-          complete();
-        },
-      });
-
-      timeline
-        .fromTo("[data-welcome]", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" })
-        .to("[data-welcome]", { y: -16, autoAlpha: 0, duration: 0.3, delay: 0.35, ease: "power2.in" });
-
-      sources.forEach((source, index) => {
-        const from = sourceRects[index];
-        const to = targetRects[index];
-        timeline!.to(source, {
-          x: to.left - from.left,
-          y: to.top - from.top,
-          width: to.width,
-          height: to.height,
-          rotation: 0,
-          duration: 0.8,
-          ease: "power3.inOut",
-        }, index === 0 ? "<" : "<+=0.08");
-      });
-      timeline.to("[data-loader-mark]", { scale: 0.8, autoAlpha: 0, duration: 0.25 }, "-=0.5");
-    } catch {
-      window.clearTimeout(hardStop);
-      complete();
     }
 
     return () => {
-      window.clearTimeout(hardStop);
+      window.clearTimeout(exitTimer);
       timeline?.kill();
     };
   }, [showIntro]);
