@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next";\nimport { Plus_Jakarta_Sans } from "next/font/google";
 import { auth } from "@/lib/auth";
 import SiteNavbar from "@/components/site-navbar";
 import "./globals.css";
 
-export const metadata: Metadata = {
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });\n\nexport const metadata: Metadata = {
   title: "E-Cell SMVIT | Events",
   description: "Discover and register for E-Cell SMVIT events.",
 };
@@ -12,7 +12,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const session = await auth();
   return (
     <html lang="en">
-      <body>
+      <body className={plusJakarta.className}>
         <SiteNavbar authenticated={!!session} role={session?.user?.role} />
         {children}
       </body>
