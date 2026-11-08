@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PageWrap, Eyebrow, PrimaryLink } from "@/components/brand-page-shell";
 
-const support=[["01","Idea to first steps","Shape an early idea, understand the problem and identify who you are building for.","https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85"],["02","Mentor connections","Get perspective, honest feedback and guidance as you work through your next challenge.","https://images.unsplash.com/photo-155676先?auto=format&fit=crop&w=900&q=85"],["03","Pitch & present","Practice telling your story, communicating value and presenting with confidence.","https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=900&q=85"]];
 export default function StartupsPage(){
  const items=[
   {n:"01",title:"Idea validation",body:"Turn a rough thought into a clear problem statement and test your assumptions.",image:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=85"},
