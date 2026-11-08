@@ -13,16 +13,6 @@ const photos = [
     alt: "Entrepreneurship workshop and discussion",
     label: "Make it happen",
   },
-  {
-    src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=85",
-    alt: "Team planning a startup project",
-    label: "Think bigger",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=85",
-    alt: "Founders working together around a table",
-    label: "Create impact",
-  },
 ];
 
 function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
@@ -65,22 +55,16 @@ export default function HomeHero() {
         </div>
 
         <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
-          <div className="absolute left-8 top-12 w-44 -rotate-6 xl:left-12 xl:w-52">
+          <div className="absolute left-[5%] top-[15%] w-44 -rotate-6 xl:w-52">
             <PhotoCard photo={photos[0]} />
           </div>
-          <div className="absolute bottom-12 left-8 w-44 rotate-6 xl:bottom-14 xl:left-12 xl:w-52">
+          <div className="absolute right-[5%] top-[45%] w-44 rotate-6 xl:w-52">
             <PhotoCard photo={photos[1]} />
-          </div>
-          <div className="absolute right-8 top-12 w-44 rotate-6 xl:right-12 xl:w-52">
-            <PhotoCard photo={photos[2]} />
-          </div>
-          <div className="absolute bottom-12 right-8 w-44 -rotate-6 xl:bottom-14 xl:right-12 xl:w-52">
-            <PhotoCard photo={photos[3]} />
           </div>
         </div>
         <div className="relative z-10 mt-8 grid w-full max-w-sm grid-cols-2 gap-4 lg:hidden">
           <PhotoCard photo={photos[0]} />
-          <PhotoCard photo={photos[2]} />
+          <PhotoCard photo={photos[1]} />
         </div>
       </section>
 
@@ -99,13 +83,13 @@ export default function HomeHero() {
           <h2 className="mt-4 text-4xl font-black tracking-[-.06em] text-[#171717] sm:text-6xl">WELCOME TO <span className="text-[#6D4DFE]">SMVIT.</span></h2>
           <p className="mt-3 text-xs font-semibold uppercase tracking-[.18em] text-[#686870]">Ideas start here. Futures take shape.</p>
         </div>
-        <div data-intro-photo className="absolute left-[5vw] top-[58%] w-[34vw] max-w-[210px] -rotate-6 sm:left-[9vw] sm:top-[55%] sm:w-[23vw]">
+        <div data-intro-photo className="absolute left-[5%] top-[58%] w-[34vw] max-w-[210px] -rotate-6 sm:left-[5%] sm:top-[58%] sm:w-[23vw]">
           <PhotoCard photo={photos[0]} />
         </div>
-        <div data-intro-photo className="absolute right-[5vw] top-[24%] w-[34vw] max-w-[210px] rotate-6 sm:right-[9vw] sm:top-[23%] sm:w-[23vw]">
+        <div data-intro-photo className="absolute right-[5%] top-[24%] w-[34vw] max-w-[210px] rotate-6 sm:right-[5%] sm:top-[24%] sm:w-[23vw]">
           <PhotoCard photo={photos[1]} />
         </div>
       </div>
-      <style>{`\n        @keyframes ecellWelcomeExit {\n          0%, 72% { opacity: 1; visibility: visible; }\n          100% { opacity: 0; visibility: hidden; }\n        }\n        @keyframes ecellWelcomeText {\n          0% { opacity: 0; transform: translateY(22px); }\n          15%, 70% { opacity: 1; transform: translateY(0); }\n          100% { opacity: 0; transform: translateY(-18px); }\n        }\n        @keyframes ecellIntroLeft {\n          0%, 16% { transform: translate3d(0, 0, 0) rotate(-9deg) scale(.92); }\n          72% { transform: translate3d(12vw, -7vh, 0) rotate(0deg) scale(1); }\n          100% { transform: translate3d(12vw, -7vh, 0) rotate(0deg) scale(1); }\n        }\n        @keyframes ecellIntroRight {\n          0%, 16% { transform: translate3d(0, 0, 0) rotate(9deg) scale(.92); }\n          72% { transform: translate3d(-12vw, 7vh, 0) rotate(0deg) scale(1); }\n          100% { transform: translate3d(-12vw, 7vh, 0) rotate(0deg) scale(1); }\n        }\n        .ecell-welcome-loader { animation: ecellWelcomeExit 3.8s ease forwards; }\n        .ecell-welcome-loader [data-welcome] { animation: ecellWelcomeText 3.5s ease both; }\n        .ecell-welcome-loader [data-intro-photo]:nth-child(3) { animation: ecellIntroLeft 3.5s cubic-bezier(.7,0,.2,1) both; }\n        .ecell-welcome-loader [data-intro-photo]:nth-child(4) { animation: ecellIntroRight 3.5s cubic-bezier(.7,0,.2,1) both; }\n        @media (prefers-reduced-motion: reduce) { .ecell-welcome-loader { animation-duration: 1ms; } }\n      `}</style>\n    </>
+      <style>{`\n        @keyframes ecellWelcomeExit {\n          0%, 72% { opacity: 1; visibility: visible; }\n          100% { opacity: 0; visibility: hidden; }\n        }\n        @keyframes ecellWelcomeText {\n          0% { opacity: 0; transform: translateY(22px); }\n          15%, 70% { opacity: 1; transform: translateY(0); }\n          100% { opacity: 0; transform: translateY(-18px); }\n        }\n        @keyframes ecellIntroLeft {\n          0%, 16% { transform: translate3d(0, 0, 0) rotate(-9deg) scale(.92); }\n          72% { transform: translate3d(0, -43vh, 0) rotate(0deg) scale(1); }\n          100% { transform: translate3d(0, -43vh, 0) rotate(0deg) scale(1); }\n        }\n        @keyframes ecellIntroRight {\n          0%, 16% { transform: translate3d(0, 0, 0) rotate(9deg) scale(.92); }\n          72% { transform: translate3d(0, 21vh, 0) rotate(0deg) scale(1); }\n          100% { transform: translate3d(0, 21vh, 0) rotate(0deg) scale(1); }\n        }\n        .ecell-welcome-loader { animation: ecellWelcomeExit 3.8s ease forwards; }\n        .ecell-welcome-loader [data-welcome] { animation: ecellWelcomeText 3.5s ease both; }\n        .ecell-welcome-loader [data-intro-photo]:nth-child(3) { animation: ecellIntroLeft 3.5s cubic-bezier(.7,0,.2,1) both; }\n        .ecell-welcome-loader [data-intro-photo]:nth-child(4) { animation: ecellIntroRight 3.5s cubic-bezier(.7,0,.2,1) both; }\n        @media (prefers-reduced-motion: reduce) { .ecell-welcome-loader { animation-duration: 1ms; } }\n      `}</style>\n    </>
   );
 }
