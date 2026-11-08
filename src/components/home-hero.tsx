@@ -30,7 +30,7 @@ export default function HomeHero() {
   return (
     <>
       <section
-        className="relative isolate mt-5 flex min-h-[680px] w-full max-w-none flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:min-h-[720px] sm:px-10"
+        className="relative isolate flex min-h-[calc(100svh-104px)] w-full max-w-none flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:min-h-[calc(100svh-104px)] sm:px-10"
         style={{ backgroundImage: "radial-gradient(#6D4DFE45 1.25px, transparent 1.25px)", backgroundSize: "17px 17px" }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#E0E0E1]/30 to-transparent" />
