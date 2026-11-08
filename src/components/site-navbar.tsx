@@ -10,7 +10,7 @@ const links = [
   { name: "Community", href: "/leaderboard" },
 ];
 
-const actionClass = "inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-lg border border-[#171717]/15 px-4 py-2 text-sm font-semibold transition-colors";
+const actionClass = "whitespace-nowrap rounded-xl border-2 border-[#171717] px-4 py-2.5 text-sm font-black text-[#171717] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-0.5 active:translate-y-1 active:shadow-none";
 
 export default function SiteNavbar({ role, authenticated }: SiteNavbarProps) {
   return (
@@ -45,8 +45,8 @@ export default function SiteNavbar({ role, authenticated }: SiteNavbarProps) {
             </>
           ) : (
             <>
-              <Link href="/login" className={actionClass + " bg-white text-[#171717] hover:border-[#6D4DFE]/40 hover:text-[#6D4DFE]"}>Login</Link>
-              <Link href="/signup" className={actionClass + " border-[#6D4DFE] bg-[#6D4DFE] text-white hover:bg-[#5B3FE0]"}>Sign up</Link>
+              <Link href="/login" className={actionClass + " bg-white hover:bg-[#E0E0E1]"}>Login</Link>
+              <Link href="/signup" className={actionClass + " bg-[#6D4DFE] text-white hover:bg-[#FF5A36]"}>Sign up</Link>
             </>
           )}
         </div>
