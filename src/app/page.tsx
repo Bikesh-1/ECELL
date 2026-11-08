@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import HomeMotion from "@/components/home-motion";
 import HomeHero from "@/components/home-hero";
