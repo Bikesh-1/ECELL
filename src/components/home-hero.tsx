@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 const photos = [
   {
     src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=85",
@@ -34,6 +35,7 @@ function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
 }
 
 export default function HomeHero() {
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
