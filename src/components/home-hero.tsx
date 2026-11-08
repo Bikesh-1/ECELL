@@ -1,9 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-
-
 const photos = [
   {
     src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=85",
@@ -14,6 +11,16 @@ const photos = [
     src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=85",
     alt: "Entrepreneurship workshop and discussion",
     label: "Make it happen",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=85",
+    alt: "Team planning a startup project",
+    label: "Think bigger",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=85",
+    alt: "Founders working together around a table",
+    label: "Create impact",
   },
 ];
 
@@ -27,17 +34,11 @@ function PhotoCard({ photo }: { photo: (typeof photos)[number] }) {
 }
 
 export default function HomeHero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const targetRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
-
-
 
   return (
     <>
       <section
-        ref={sectionRef}
-        className="relative isolate mx-auto mt-5 flex min-h-[570px] max-w-7xl flex-col items-center justify-center overflow-hidden px-5 py-14 text-center sm:min-h-[610px] sm:px-10"
+        className="relative isolate mx-auto mt-5 flex min-h-[680px] max-w-7xl flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:min-h-[720px] sm:px-10"
         style={{ backgroundImage: "radial-gradient(#6D4DFE22 1.15px, transparent 1.15px)", backgroundSize: "19px 19px" }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#E0E0E1]/30 to-transparent" />
@@ -45,8 +46,9 @@ export default function HomeHero() {
           <img src="https://ik.imagekit.io/es6xialea/blacklogo.svg" alt="E-Cell SMVIT logo" className="h-full w-full object-contain" />
         </div>
         <p className="relative z-10 text-[10px] font-black uppercase tracking-[.22em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
-        <h1 className="relative z-10 mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black leading-[1.04] tracking-[-.065em] text-[#171717]">
-          Where ideas meet <span className="text-[#6D4DFE]">opportunity.</span>
+        <h1 className="relative z-10 mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black uppercase leading-[1.02] tracking-[-.065em] text-[#171717]">
+          <span className="block normal-case">Where ideas</span>
+          <span className="block text-[#6D4DFE]">MEET OPPORTUNITY.</span>
         </h1>
         <p className="relative z-10 mt-5 max-w-xl text-sm font-medium leading-7 text-[#686870] sm:text-base">
           A space for curious minds, bold builders and future founders to connect, create and turn ambition into action.
@@ -60,18 +62,23 @@ export default function HomeHero() {
           </Link>
         </div>
 
-        <div className="relative z-0 mt-9 flex w-full max-w-md justify-center gap-5 lg:contents">
-          {photos.map((photo, index) => (
-            <div
-              key={photo.label}
-              ref={targetRefs[index]}
-              className={index === 0
-                ? "relative w-[42%] max-w-[190px] -rotate-6 lg:absolute lg:left-5 lg:top-1/2 lg:mt-0 lg:w-52 lg:max-w-none lg:-translate-y-1/2 xl:left-12 xl:w-60"
-                : "relative w-[42%] max-w-[190px] rotate-6 lg:absolute lg:right-5 lg:top-1/2 lg:mt-0 lg:w-52 lg:max-w-none lg:-translate-y-[42%] xl:right-12 xl:w-60"}
-            >
-              <PhotoCard photo={photo} />
-            </div>
-          ))}
+        <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+          <div className="absolute left-8 top-12 w-44 -rotate-6 xl:left-12 xl:w-52">
+            <PhotoCard photo={photos[0]} />
+          </div>
+          <div className="absolute bottom-12 left-8 w-44 rotate-6 xl:bottom-14 xl:left-12 xl:w-52">
+            <PhotoCard photo={photos[1]} />
+          </div>
+          <div className="absolute right-8 top-12 w-44 rotate-6 xl:right-12 xl:w-52">
+            <PhotoCard photo={photos[2]} />
+          </div>
+          <div className="absolute bottom-12 right-8 w-44 -rotate-6 xl:bottom-14 xl:right-12 xl:w-52">
+            <PhotoCard photo={photos[3]} />
+          </div>
+        </div>
+        <div className="relative z-10 mt-8 grid w-full max-w-sm grid-cols-2 gap-4 lg:hidden">
+          <PhotoCard photo={photos[0]} />
+          <PhotoCard photo={photos[2]} />
         </div>
       </section>
 
