@@ -14,19 +14,22 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
-        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center overflow-hidden rounded-[26px] border-2 border-[#171717] bg-white px-6 py-10 text-center shadow-[0_8px_0_#171717] sm:px-12 sm:py-14 lg:py-16">
-          <p className="text-[10px] font-black uppercase tracking-[.2em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
-          <h1 className="mt-5 max-w-4xl text-[clamp(2rem,4.8vw,4.2rem)] font-black uppercase leading-[1.02] tracking-[-.065em] text-[#6D4DFE]">
-            Where aspiration<br className="hidden sm:block" /> meets opportunity.
+        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center px-5 py-10 text-center sm:px-10 sm:py-14 lg:py-16">
+          <div className="mb-7 flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-[#171717] bg-white p-3 shadow-[0_5px_0_#171717] sm:h-24 sm:w-24">
+            <img src="https://ik.imagekit.io/es6xialea/blacklogo.svg" alt="E-Cell SMVIT logo" className="h-full w-full object-contain" />
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-[.22em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
+          <h1 className="mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black leading-[1.04] tracking-[-.065em] text-[#171717]">
+            Where ideas meet <span className="text-[#6D4DFE]">opportunity.</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-sm font-medium leading-7 text-[#55555d] sm:text-base">
-            A launchpad for curious minds, bold builders and future founders. Find your people, turn ideas into action, and make things happen.
+          <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-[#686870] sm:text-base">
+            A space for curious minds, bold builders and future founders to connect, create and turn ambition into action.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link href="/events" className="inline-flex min-h-11 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-2.5 text-sm font-black text-white shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-white hover:text-[#6D4DFE] active:translate-y-1 active:shadow-none">
               Explore events <span aria-hidden="true">↗</span>
             </Link>
-            <Link href="/signup" className="inline-flex min-h-11 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-2.5 text-sm font-black text-[#6D4DFE] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#6D4DFE] hover:text-white active:translate-y-1 active:shadow-none">
+            <Link href="/signup" className="inline-flex min-h-11 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-2.5 text-sm font-black text-[#171717] shadow-[0_4px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#6D4DFE] hover:text-white active:translate-y-1 active:shadow-none">
               Join the community
             </Link>
           </div>
