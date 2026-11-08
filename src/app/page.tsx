@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
-      <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
+      <div>
         <HomeHero />
 
         <EcellScrollStory />
