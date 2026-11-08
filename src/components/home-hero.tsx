@@ -32,8 +32,6 @@ export default function HomeHero() {
       <section
         className="relative isolate mx-auto mt-5 flex min-h-[680px] max-w-7xl flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:min-h-[720px] sm:px-10"
         style={{ backgroundImage: "radial-gradient(#6D4DFE45 1.25px, transparent 1.25px)", backgroundSize: "17px 17px" }}
-        className="relative isolate mx-auto mt-5 flex min-h-screen max-w-7xl flex-col items-center justify-center overflow-hidden text-center sm:min-h-[720px]"
-        style={{ backgroundImage: "radial-gradient(#6D4DFE22 1.15px, transparent 1.15px)", backgroundSize: "19px 19px" }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#E0E0E1]/30 to-transparent" />
         <div className="relative z-10 mb-7 flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-[#171717] bg-white p-3 shadow-[0_5px_0_#171717] sm:h-24 sm:w-24">
