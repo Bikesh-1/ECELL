@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import FloatingEcellCard from "@/components/floating-ecell-card";
 import HomeMotion from "@/components/home-motion";
 import EcellScrollStory from "@/components/ecell-scroll-story";
 
@@ -15,42 +14,29 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
-        <section className="mt-5 grid overflow-hidden rounded-[28px] border-2 border-[#171717] bg-white shadow-[0_9px_0_#171717] lg:min-h-[610px] lg:grid-cols-[1.05fr_.95fr]">
-          <div className="relative flex flex-col justify-between overflow-hidden bg-[#6D4DFE] p-7 text-white sm:p-10 lg:p-12">
-            <p className="inline-flex items-center gap-2 rounded-lg border-2 border-white/60 bg-white px-3 py-2 text-[11px] font-black text-[#171717]">
-              <span className="h-2 w-2 rounded-full bg-[#6D4DFE]" />
-              Entrepreneurship Cell · SMVIT
-            </p>
-            <p className="mt-9 text-xs font-black uppercase tracking-[.2em] text-white/75">Ideas deserve a bigger stage.</p>
-            <h1 className="mt-4 text-[clamp(3.2rem,7.5vw,6.8rem)] font-black leading-[.92] tracking-[-.075em] text-white">
-              Think beyond<br />
-              <span className="text-[#FFB09D]">the usual.</span>
-            </h1>
-            <p className="mt-7 max-w-xl text-base font-medium leading-8 text-white/85 sm:text-lg">
-              A launchpad for curious minds, bold builders and future founders. Find your people, turn ideas into action, and make things happen.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="/events" className="inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#FF5A36] px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white hover:shadow-[0_7px_0_#FF5A36] active:translate-y-1 active:shadow-none">
-                Explore events <span aria-hidden="true">↗</span>
-              </Link>
-              <Link href="/signup" className="inline-flex min-h-12 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white hover:shadow-[0_7px_0_#FF5A36] active:translate-y-1 active:shadow-none">
-                Join the community
-              </Link>
-            </div>
-            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-2 border-white/25 pt-5 text-xs font-black text-white/70">
-              <span>Build</span><span className="h-1 w-1 rounded-full bg-[#FF5A36]" />
-              <span>Connect</span><span className="h-1 w-1 rounded-full bg-[#FF5A36]" />
-              <span>Launch</span><span className="ml-auto text-[#6D4DFE]">Bengaluru · India</span>
-            </div>
+        <section className="mx-auto mt-5 flex max-w-5xl flex-col items-center overflow-hidden rounded-[26px] border-2 border-[#171717] bg-[#6D4DFE] px-6 py-12 text-center text-white shadow-[0_8px_0_#171717] sm:px-12 sm:py-16 lg:py-20">
+          <div className="mb-8 flex h-16 items-center justify-center rounded-xl border-2 border-[#171717] bg-white px-6 py-3 shadow-[0_4px_0_#171717]">
+            <img src="https://ik.imagekit.io/es6xialea/blacklogo.svg" alt="E-Cell SMVIT logo" className="h-10 w-auto object-contain" />
           </div>
-          <div className="relative mx-auto flex min-h-[420px] w-full max-w-[520px] items-center justify-center rounded-none bg-[#FF5A36] p-7 sm:p-10 lg:min-h-full">
-            <div className="absolute -inset-5 rounded-[32px] border-2 border-[#171717]/10" />
-            <div className="relative">
-              <FloatingEcellCard />
-            </div>
-            <div className="absolute -bottom-2 -right-2 rounded-lg border-2 border-[#171717] bg-[#6D4DFE] px-4 py-3 text-xs font-black text-white shadow-[0_4px_0_#171717] sm:right-0">
-              Made of ideas. Built together.
-            </div>
+          <p className="text-[11px] font-black uppercase tracking-[.22em] text-white/75">Entrepreneurship Cell · SMVIT</p>
+          <h1 className="mt-5 max-w-4xl text-[clamp(2.3rem,6vw,5.2rem)] font-black uppercase leading-[.98] tracking-[-.065em] text-white">
+            Where aspiration<br className="hidden sm:block" /> meets opportunity.
+          </h1>
+          <p className="mt-6 max-w-2xl text-sm font-medium leading-7 text-white/85 sm:text-lg">
+            A launchpad for curious minds, bold builders and future founders. Find your people, turn ideas into action, and make things happen.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/events" className="inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-white px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white active:translate-y-1 active:shadow-none">
+              Explore events <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="/signup" className="inline-flex min-h-12 items-center rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-3 text-sm font-black text-white shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-white hover:text-[#171717] active:translate-y-1 active:shadow-none">
+              Join the community
+            </Link>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t-2 border-white/25 pt-5 text-[11px] font-black uppercase tracking-[.14em] text-white/75">
+            <span>Build</span><span className="h-1 w-1 rounded-full bg-white" />
+            <span>Connect</span><span className="h-1 w-1 rounded-full bg-white" />
+            <span>Launch</span><span className="hidden sm:inline">· Bengaluru, India</span>
           </div>
         </section>
 
@@ -74,7 +60,7 @@ export default async function Home() {
           <div className="flex flex-col justify-between gap-5 border-b border-[#171717]/10 pb-6 sm:flex-row sm:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.16em] text-[#6D4DFE]">Make your next move</p>
-              <h2 className="mt-2 text-4xl font-bold leading-tight tracking-[-.055em] sm:text-5xl">Happening<span className="text-[#FF5A36]">.</span></h2>
+              <h2 className="mt-2 text-4xl font-bold leading-tight tracking-[-.055em] sm:text-5xl">Happening<span className="text-[#6D4DFE]">.</span></h2>
               <p className="mt-3 max-w-md text-sm leading-7 text-[#686870]">Workshops, challenges and experiences to help your curiosity go somewhere.</p>
             </div>
             <Link href="/events" className="inline-flex w-fit items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[#6D4DFE] transition-colors hover:bg-white/60">View all events <span>↗</span></Link>
@@ -84,8 +70,8 @@ export default async function Home() {
             {events.map((event) => (
               <article key={event.id} className="group flex min-h-[260px] flex-col rounded-2xl border-2 border-[#171717] bg-white p-6 shadow-[0_6px_0_#171717] transition-all hover:-translate-y-1 hover:shadow-[0_9px_0_#171717]">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-lg border-2 border-[#171717] bg-[#FF5A36] px-3 py-1.5 text-[10px] font-black text-[#171717]">UPCOMING EVENT</span>
-                  <span className="text-lg text-[#FF5A36]">↗</span>
+                  <span className="rounded-lg border-2 border-[#171717] bg-[#6D4DFE] px-3 py-1.5 text-[10px] font-black text-[#171717]">UPCOMING EVENT</span>
+                  <span className="text-lg text-[#6D4DFE]">↗</span>
                 </div>
                 <div className="mt-7">
                   <p className="text-xs font-semibold text-[#6D4DFE]">{event.eventDate.toLocaleDateString("en-IN", { dateStyle: "medium" })}</p>
@@ -94,7 +80,7 @@ export default async function Home() {
                 </div>
                 <div className="mt-auto flex items-center justify-between border-t border-[#171717]/10 pt-4">
                   <p className="text-xs text-[#77777d]">{event._count.registrations} registered</p>
-                  <Link href="/events" className="text-xs font-semibold text-[#6D4DFE] hover:text-[#FF5A36]">Discover →</Link>
+                  <Link href="/events" className="text-xs font-semibold text-[#6D4DFE] hover:text-[#6D4DFE]">Discover →</Link>
                 </div>
               </article>
             ))}
@@ -109,20 +95,20 @@ export default async function Home() {
 
         <section className="rounded-[26px] border-2 border-[#171717] bg-[#171717] px-7 py-10 text-white shadow-[0_8px_0_#6D4DFE] sm:px-10 sm:py-14">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#FF8B72]">Your idea has a place here</p>
+            <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#B4A4FF]">Your idea has a place here</p>
             <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-.045em] sm:text-5xl">Don't just watch what's next. <span className="text-[#B4A4FF]">Be part of it.</span></h2>
             <p className="mt-4 max-w-lg text-sm leading-7 text-white/65">Meet the people who will challenge your thinking, back your ideas and build alongside you.</p>
-            <Link href="/signup" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#FF5A36] px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#6D4DFE] transition-all hover:-translate-y-1 hover:bg-white hover:shadow-[0_7px_0_#FF5A36]">Join the community <span>↗</span></Link>
+            <Link href="/signup" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#6D4DFE] px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#6D4DFE] transition-all hover:-translate-y-1 hover:bg-white hover:shadow-[0_7px_0_#6D4DFE]">Join the community <span>↗</span></Link>
           </div>
         </section>
 
         <footer className="flex flex-col gap-3 pt-8 text-xs text-[#77777d] sm:flex-row sm:items-center sm:justify-between">
           <span>E-Cell · SMVIT Bengaluru</span><span>Think different. Build together.</span>
           <div className="flex flex-wrap gap-x-5 gap-y-2 font-semibold">
-            <Link href="/about" className="text-[#6D4DFE] hover:text-[#FF5A36]">About E-Cell</Link>
-            <Link href="/startups" className="text-[#6D4DFE] hover:text-[#FF5A36]">Startups backed by E-Cell</Link>
-            <Link href="/team" className="text-[#6D4DFE] hover:text-[#FF5A36]">Meet our team</Link>
-            <Link href="/contact" className="text-[#6D4DFE] hover:text-[#FF5A36]">Contact us</Link>
+            <Link href="/about" className="text-[#6D4DFE] hover:text-[#6D4DFE]">About E-Cell</Link>
+            <Link href="/startups" className="text-[#6D4DFE] hover:text-[#6D4DFE]">Startups backed by E-Cell</Link>
+            <Link href="/team" className="text-[#6D4DFE] hover:text-[#6D4DFE]">Meet our team</Link>
+            <Link href="/contact" className="text-[#6D4DFE] hover:text-[#6D4DFE]">Contact us</Link>
           </div>
         </footer>
       </div>
