@@ -20,7 +20,7 @@ export default function BrandPageMotion() {
         gsap.from(el, { y: 35, opacity: 0, scale: .97, duration: .7, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%", once: true } });
       });
       gsap.to(".page-orb", { y: -30, rotate: 18, duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    }, node);
+    }, node.parentElement ?? node);
     return () => ctx.revert();
   }, []);
   return <div ref={root} className="pointer-events-none absolute left-0 top-0 h-0 w-0" aria-hidden="true" />;
