@@ -34,82 +34,72 @@ export default function HomeHero() {
   useLayoutEffect(() => {
     const overlay = loaderRef.current;
     const targets = targetRefs.map((ref) => ref.current);
-    if (!overlay || targets.some((target) => !target)) return;
+    if (!overlay) return;
 
     const sources = Array.from(overlay.querySelectorAll<HTMLElement>("[data-intro-photo]"));
-    let cancelled = false;
-    let timeline: gsap.core.Timeline | undefined;
-    let fallbackId = 0;
+    let timeline: gsap.core.Timeline | null = null;
+    let finished = false;
+    let fallbackTimer = 0;
 
-    const finishLoader = () => {
-      if (!overlay.isConnected) return;
-      gsap.to(overlay, {
-        autoAlpha: 0,
-        duration: 0.35,
-        ease: "power2.out",
-        onComplete: () => overlay.remove(),
-      });
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      if (fallbackTimer) window.clearTimeout(fallbackTimer);
+      timeline?.kill();
+      if (targets.length) gsap.set(targets.filter(Boolean), { clearProps: "opacity,visibility,transform" });
+      overlay.remove();
     };
 
-    const startAnimation = () => {
-      if (cancelled || !overlay.isConnected) return;
+    // Hard deadline: this runs even if GSAP, image decoding, or animation callbacks fail.
+    fallbackTimer = window.setTimeout(finish, 4000);
 
-      const targetRects = targets.map((node) => node!.getBoundingClientRect());
-      const sourceRects = sources.map((node) => node.getBoundingClientRect());
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set(targets, { autoAlpha: 1 });
-        overlay.remove();
+    const begin = () => {
+      if (finished || !overlay.isConnected) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || targets.some((node) => !node)) {
+        finish();
         return;
       }
 
-      gsap.set(targets, { autoAlpha: 0 });
-      timeline = gsap.timeline({
-        defaults: { ease: "power3.inOut" },
-        onComplete: () => {
-          gsap.set(targets, { autoAlpha: 1 });
-          finishLoader();
-        },
-      });
+      try {
+        const fromRects = sources.map((node) => node.getBoundingClientRect());
+        const toRects = targets.map((node) => node!.getBoundingClientRect());
+        gsap.set(targets, { autoAlpha: 0 });
 
-      timeline
-        .fromTo("[data-welcome]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: "power3.out" })
-        .to("[data-welcome]", { y: -16, autoAlpha: 0, duration: 0.35, delay: 0.45, ease: "power2.in" });
+        timeline = gsap.timeline({
+          onComplete: finish,
+          onInterrupt: finish,
+        });
 
-      sources.forEach((source, index) => {
-        const from = sourceRects[index];
-        const to = targetRects[index];
-        timeline!.to(source, {
-          x: to.left - from.left,
-          y: to.top - from.top,
-          width: to.width,
-          height: to.height,
-          rotation: 0,
-          scale: 1,
-          duration: 1.05,
-          ease: "power4.inOut",
-        }, index === 0 ? "<" : "<+=0.1");
-      });
+        timeline
+          .fromTo("[data-welcome]", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power2.out" })
+          .to("[data-welcome]", { y: -14, autoAlpha: 0, duration: 0.3, delay: 0.35, ease: "power2.in" });
 
-      timeline.to("[data-loader-mark]", { scale: 0.75, autoAlpha: 0, duration: 0.3 }, "-=0.7");
+        sources.forEach((source, index) => {
+          const from = fromRects[index];
+          const to = toRects[index];
+          timeline!.to(source, {
+            x: to.left - from.left,
+            y: to.top - from.top,
+            width: to.width,
+            height: to.height,
+            rotation: 0,
+            duration: 0.85,
+            ease: "power3.inOut",
+          }, index === 0 ? "<" : "<+=0.08");
+        });
+
+        timeline.to("[data-loader-mark]", { scale: 0.8, autoAlpha: 0, duration: 0.25 }, "-=0.55");
+      } catch {
+        finish();
+      }
     };
 
-    // Never let a slow or blocked image request keep the intro screen open.
-    fallbackId = window.setTimeout(() => {
-      if (cancelled) return;
-      if (!timeline) {
-        gsap.set(targets, { autoAlpha: 1 });
-        overlay.remove();
-      }
-    }, 4500);
-
-    requestAnimationFrame(() => requestAnimationFrame(startAnimation));
+    const frame = window.requestAnimationFrame(() => window.requestAnimationFrame(begin));
 
     return () => {
-      cancelled = true;
-      window.clearTimeout(fallbackId);
+      window.cancelAnimationFrame(frame);
+      if (fallbackTimer) window.clearTimeout(fallbackTimer);
       timeline?.kill();
-      gsap.killTweensOf(overlay);
       gsap.killTweensOf(sources);
       gsap.killTweensOf(targets);
     };
