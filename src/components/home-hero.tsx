@@ -30,7 +30,7 @@ export default function HomeHero() {
   return (
     <>
       <section
-        className="relative isolate mx-auto mt-5 flex min-h-[680px] max-w-7xl flex-col items-center justify-center overflow-hidden px-5 py-16 text-center sm:min-h-[720px] sm:px-10"
+        className="relative isolate mx-auto mt-5 flex min-h-screen max-w-7xl flex-col items-center justify-center overflow-hidden text-center sm:min-h-[720px]"
         style={{ backgroundImage: "radial-gradient(#6D4DFE22 1.15px, transparent 1.15px)", backgroundSize: "19px 19px" }}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#E0E0E1]/30 to-transparent" />
@@ -39,7 +39,7 @@ export default function HomeHero() {
         </div>
         <p className="relative z-10 text-[10px] font-black uppercase tracking-[.22em] text-[#6D4DFE] sm:text-xs">Entrepreneurship Cell · SMVIT</p>
         <h1 className="relative z-10 mt-5 max-w-4xl text-[clamp(2rem,4.4vw,4rem)] font-black uppercase leading-[1.02] tracking-[-.065em] text-[#171717]">
-          <span className="block normal-case">Where ideas</span>
+          <span className="block normal-case font-bold">Where ideas</span>
           <span className="block text-[#6D4DFE]">MEET OPPORTUNITY.</span>
         </h1>
         <p className="relative z-10 mt-5 max-w-xl text-sm font-medium leading-7 text-[#686870] sm:text-base">
