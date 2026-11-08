@@ -1,9 +1,12 @@
-import type { Metadata } from "next";\nimport { Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { auth } from "@/lib/auth";
 import SiteNavbar from "@/components/site-navbar";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });\n\nexport const metadata: Metadata = {
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });
+
+export const metadata: Metadata = {
   title: "E-Cell SMVIT | Events",
   description: "Discover and register for E-Cell SMVIT events.",
 };
