@@ -15,40 +15,40 @@ export default async function Home() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#E0E0E1] text-[#171717]">
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-8 sm:px-8 lg:px-10">
-        <section className="grid min-h-[610px] items-center gap-12 border-b border-[#171717]/10 py-12 lg:grid-cols-[1.05fr_.95fr] lg:py-16">
-          <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[#171717]/10 bg-white/70 px-3 py-2 text-[11px] font-semibold text-[#55555d]">
+        <section className="mt-5 grid overflow-hidden rounded-[28px] border-2 border-[#171717] bg-white shadow-[0_9px_0_#171717] lg:min-h-[610px] lg:grid-cols-[1.05fr_.95fr]">
+          <div className="relative flex flex-col justify-between overflow-hidden bg-[#6D4DFE] p-7 text-white sm:p-10 lg:p-12">
+            <p className="inline-flex items-center gap-2 rounded-lg border-2 border-white/60 bg-white px-3 py-2 text-[11px] font-black text-[#171717]">
               <span className="h-2 w-2 rounded-full bg-[#6D4DFE]" />
               Entrepreneurship Cell · SMVIT
             </p>
-            <p className="mt-9 text-xs font-bold uppercase tracking-[.18em] text-[#6D4DFE]">Ideas deserve a bigger stage.</p>
-            <h1 className="mt-4 text-[clamp(3.2rem,7.5vw,6.8rem)] font-extrabold leading-[.94] tracking-[-.075em]">
+            <p className="mt-9 text-xs font-black uppercase tracking-[.2em] text-white/75">Ideas deserve a bigger stage.</p>
+            <h1 className="mt-4 text-[clamp(3.2rem,7.5vw,6.8rem)] font-black leading-[.92] tracking-[-.075em] text-white">
               Think beyond<br />
-              <span className="text-[#6D4DFE]">the usual.</span>
+              <span className="text-[#FFB09D]">the usual.</span>
             </h1>
-            <p className="mt-7 max-w-xl text-base leading-8 text-[#62626a] sm:text-lg">
+            <p className="mt-7 max-w-xl text-base font-medium leading-8 text-white/85 sm:text-lg">
               A launchpad for curious minds, bold builders and future founders. Find your people, turn ideas into action, and make things happen.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="/events" className="inline-flex min-h-11 items-center gap-3 rounded-lg bg-[#6D4DFE] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#5B3FE0]">
+              <Link href="/events" className="inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#FF5A36] px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white hover:shadow-[0_7px_0_#FF5A36] active:translate-y-1 active:shadow-none">
                 Explore events <span aria-hidden="true">↗</span>
               </Link>
-              <Link href="/signup" className="inline-flex min-h-11 items-center rounded-lg border border-[#171717]/15 bg-white/70 px-5 py-3 text-sm font-semibold text-[#171717] transition-colors hover:border-[#6D4DFE]/40 hover:text-[#6D4DFE]">
+              <Link href="/signup" className="inline-flex min-h-12 items-center rounded-xl border-2 border-[#171717] bg-white px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#171717] transition-all hover:-translate-y-1 hover:bg-[#171717] hover:text-white hover:shadow-[0_7px_0_#FF5A36] active:translate-y-1 active:shadow-none">
                 Join the community
               </Link>
             </div>
-            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#171717]/10 pt-5 text-xs font-semibold text-[#77777d]">
+            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-2 border-white/25 pt-5 text-xs font-black text-white/70">
               <span>Build</span><span className="h-1 w-1 rounded-full bg-[#FF5A36]" />
               <span>Connect</span><span className="h-1 w-1 rounded-full bg-[#FF5A36]" />
               <span>Launch</span><span className="ml-auto text-[#6D4DFE]">Bengaluru · India</span>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-[520px]">
-            <div className="absolute -inset-5 rounded-[32px] bg-[#6D4DFE]/[0.06]" />
+          <div className="relative mx-auto flex min-h-[420px] w-full max-w-[520px] items-center justify-center rounded-none bg-[#FF5A36] p-7 sm:p-10 lg:min-h-full">
+            <div className="absolute -inset-5 rounded-[32px] border-2 border-[#171717]/10" />
             <div className="relative">
               <FloatingEcellCard />
             </div>
-            <div className="absolute -bottom-2 -right-2 rounded-lg bg-[#FF5A36] px-4 py-3 text-xs font-bold text-[#171717] shadow-sm sm:right-0">
+            <div className="absolute -bottom-2 -right-2 rounded-lg border-2 border-[#171717] bg-[#6D4DFE] px-4 py-3 text-xs font-black text-white shadow-[0_4px_0_#171717] sm:right-0">
               Made of ideas. Built together.
             </div>
           </div>
@@ -63,8 +63,8 @@ export default async function Home() {
             { value: "BOLD", label: "Minds at work" },
             { value: "YOU", label: "Belong here" },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl border border-[#171717]/10 bg-white/80 px-5 py-5">
-              <p className="text-2xl font-bold tracking-tight text-[#6D4DFE] sm:text-3xl">{item.value}</p>
+            <div key={item.label} className="rounded-xl border-2 border-[#171717] bg-white px-5 py-5 shadow-[0_5px_0_#171717]">
+              <p className="text-2xl font-black tracking-tight text-[#6D4DFE] sm:text-3xl">{item.value}</p>
               <p className="mt-1 text-xs font-medium text-[#77777d]">{item.label}</p>
             </div>
           ))}
@@ -82,9 +82,9 @@ export default async function Home() {
 
           <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {events.map((event) => (
-              <article key={event.id} className="group flex min-h-[260px] flex-col rounded-2xl border border-[#171717]/10 bg-white/85 p-6 transition-all hover:-translate-y-1 hover:border-[#6D4DFE]/30 hover:shadow-lg hover:shadow-[#171717]/5">
+              <article key={event.id} className="group flex min-h-[260px] flex-col rounded-2xl border-2 border-[#171717] bg-white p-6 shadow-[0_6px_0_#171717] transition-all hover:-translate-y-1 hover:shadow-[0_9px_0_#171717]">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full bg-[#6D4DFE]/[0.08] px-3 py-1.5 text-[10px] font-semibold text-[#6D4DFE]">Upcoming event</span>
+                  <span className="rounded-lg border-2 border-[#171717] bg-[#FF5A36] px-3 py-1.5 text-[10px] font-black text-[#171717]">UPCOMING EVENT</span>
                   <span className="text-lg text-[#FF5A36]">↗</span>
                 </div>
                 <div className="mt-7">
@@ -107,12 +107,12 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="rounded-2xl bg-[#171717] px-7 py-10 text-white sm:px-10 sm:py-14">
+        <section className="rounded-[26px] border-2 border-[#171717] bg-[#171717] px-7 py-10 text-white shadow-[0_8px_0_#6D4DFE] sm:px-10 sm:py-14">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#FF8B72]">Your idea has a place here</p>
             <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-.045em] sm:text-5xl">Don't just watch what's next. <span className="text-[#B4A4FF]">Be part of it.</span></h2>
             <p className="mt-4 max-w-lg text-sm leading-7 text-white/65">Meet the people who will challenge your thinking, back your ideas and build alongside you.</p>
-            <Link href="/signup" className="mt-7 inline-flex min-h-11 items-center gap-3 rounded-lg bg-[#FF5A36] px-5 py-3 text-sm font-semibold text-[#171717] transition-colors hover:bg-white">Join the community <span>↗</span></Link>
+            <Link href="/signup" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-xl border-2 border-[#171717] bg-[#FF5A36] px-5 py-3 text-sm font-black text-[#171717] shadow-[0_5px_0_#6D4DFE] transition-all hover:-translate-y-1 hover:bg-white hover:shadow-[0_7px_0_#FF5A36]">Join the community <span>↗</span></Link>
           </div>
         </section>
 
